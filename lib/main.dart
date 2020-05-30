@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gradbatch2020/widgets/developerInfo.dart';
 import 'package:gradbatch2020/widgets/studentList.dart';
 import 'package:provider/provider.dart';
-import 'package:syncfusion_flutter_core/core.dart';
+//import 'package:syncfusion_flutter_core/core.dart';
 
 import './class/colorCodeNotifier.dart';
 import './class/actualColorCodes.dart';
