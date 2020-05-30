@@ -12,7 +12,7 @@ import './widgets/developerInfo.dart';
 import './widgets/detailInfo.dart';
 
 void main() {
-  SyncfusionLicense.registerLicense('NT8mJyc2IWhia31ifWN9Z2FoYmF8YGJ8ampqanNiYmlmamlmanMDHmgyMTs6OTonfTIjPCc6ODIhYmZlEzQ+Mjo/fTA8Pg==');
+  
   runApp(
     ChangeNotifierProvider<ColorCodeNotifier>(
       create: (_) => ColorCodeNotifier(ccLight),
