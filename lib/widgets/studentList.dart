@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../class/colorCodeNotifier.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
 import '../data/mainData.dart';
+import '../services/batchListFromFirestore.dart';
 
 
 class StudentList extends StatelessWidget {
@@ -77,6 +79,33 @@ class StudentList extends StatelessWidget {
         break;
     }
 
+   var batch;
+    BatchList bl = new BatchList();
+  
+    batch=bl.getBatch('m${mainIndex.aridx + 1}').then((record){
+      if(record.documents.isNotEmpty){
+        for(int i=0;i<record.documents.length;i++){
+           batch = record.documents[i].data;
+          print(batch.documents.length);
+        }
+      }
+    });
+
+
+   /* var dr = Firestore.instance.collection('students').where('batch',isEqualTo: 'm${mainIndex.aridx + 1}').getDocuments().then((record){
+      if(record.documents.isNotEmpty){
+        batchStrength= record.documents.length.toString();
+        for(int i=0;i<record.documents.length;i++){
+          var studentList = record.documents[i].data;
+           print('new strength is ' +studentList.);
+          print(studentList);
+          print(studentList.values);
+        }
+      }
+    });*/
+
+    
+   
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
       appBar: AppBar(
@@ -143,7 +172,7 @@ class StudentList extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           Text(
-                            'Batch Strength : ${data.length}',
+                            'Batch Strength : ${data.length} ',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 18,
@@ -211,7 +240,7 @@ class StudentList extends StatelessWidget {
               height: (size.height) * 0.74,
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: ListView.builder(
-                itemCount: data.length,
+                itemCount: 3,
                 itemBuilder: (ctx, index) {
                   return Card(
                     color: localColorCode.ccListTileBackground,
@@ -244,7 +273,7 @@ class StudentList extends StatelessWidget {
                             )*/
 
                       title: Text(
-                        data[index]['fname'] + ' ' + data[index]['lname'],
+                        batch['fname'] + ' ' + batch['lname'],
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 18,
@@ -252,7 +281,7 @@ class StudentList extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        data[index]['batch'],
+                        batch['batch'],
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 16,
