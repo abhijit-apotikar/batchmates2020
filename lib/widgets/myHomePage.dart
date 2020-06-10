@@ -1,19 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+//import 'package:google_sign_in/google_sign_in.dart';
 
 import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
+import '../class/LogInDetail.dart';
 
 import '../data/mainData.dart';
+
+//import '../widgets/logInPage.dart';
 
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
+    RouteSettings settings = ModalRoute.of(context).settings;
+    LogInDetail lid = settings.arguments;
 
     Size size = MediaQuery.of(context).size;
 
@@ -88,14 +94,14 @@ class MyHomePage extends StatelessWidget {
                             ),
                           ),
                         ),
-                       onTap: () {
-                        Arguments idx = new Arguments(index);
-                        Navigator.pushNamed(
-                          context,
-                          '/StudentList',
-                          arguments: idx,
-                        );
-                      },
+                        onTap: () {
+                          Arguments idx = new Arguments(index);
+                          Navigator.pushNamed(
+                            context,
+                            '/StudentList',
+                            arguments: idx,
+                          );
+                        },
                       );
                     })),
               ),
@@ -110,18 +116,20 @@ class MyHomePage extends StatelessWidget {
               height: 20,
             ),
             Container(
+              padding: const EdgeInsets.only(left: 10),
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/DeveloperInfo');
+                      Navigator.pushNamed(context, '/DeveloperInfo',
+                          arguments: lid.user.photoUrl);
                     },
                     child: Hero(
                       tag: 'Developer',
                       child: Container(
-                        width: 150,
-                        height: 150,
+                        width: 100,
+                        height: 100,
                         decoration: new BoxDecoration(
                           shape: BoxShape.circle,
                           border: Border.all(
@@ -130,8 +138,7 @@ class MyHomePage extends StatelessWidget {
                           ),
                           image: new DecorationImage(
                             fit: BoxFit.fill,
-                            image: new AssetImage(
-                                'assets/images/abhi_green_dp.jpg'),
+                            image: new NetworkImage('${lid.user.photoUrl}'),
                           ),
                         ),
                       ),
@@ -141,20 +148,29 @@ class MyHomePage extends StatelessWidget {
               ),
             ),
             Container(
-              child: Center(
-                child: Column(
-                  children: <Widget>[
-                    Text(
-                      'Developer',
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 22,
-                        fontWeight: FontWeight.bold,
-                        color: localColorCode.ccAppBarForegroundColor,
-                      ),
+              padding: const EdgeInsets.only(left: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    '${lid.user.displayName}',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
+                      color: localColorCode.ccAppBarForegroundColor,
                     ),
-                  ],
-                ),
+                  ),
+                   Text(
+                    '${lid.user.email}',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                      color: localColorCode.ccAppBarForegroundColor,
+                    ),
+                  ),
+                ],
               ),
             ),
             ListTile(
@@ -184,11 +200,86 @@ class MyHomePage extends StatelessWidget {
                     )
                   ]),
             ),
+            ListTile(
+              title: InkWell(
+                child: Text(
+                  'Log Out',
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () => showAlertDialog(context, lid),
+              ),
+             /* subtitle: Text(
+                'currently Logged In as ${lid.user.displayName}',
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),*/
+            ),
+            /* Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(left: 18),
+                  child: InkWell(
+                    child: Text(
+                      'Log Out',
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                        fontSize: 24,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    onTap: () => showAlertDialog(context, lid),
+                  ),
+                ),
+              ],
+            ),*/
           ],
         ),
       ),
     );
   }
+}
+
+showAlertDialog(BuildContext context, LogInDetail lid) {
+  // set up the buttons
+  Widget cancelButton = FlatButton(
+    child: Text('Yes'),
+    onPressed: () {
+      lid.googleSignIn.signOut();
+      Navigator.pushNamed(context, '/LogInPage');
+    },
+  );
+  Widget continueButton = FlatButton(
+    child: Text('No'),
+    onPressed: () {
+      Navigator.pop(context);
+    },
+  );
+
+  // set up the AlertDialog
+  AlertDialog alert = AlertDialog(
+    title: Text("AlertDialog"),
+    content: Text("Do you really want to Log Out?"),
+    actions: [
+      cancelButton,
+      continueButton,
+    ],
+  );
+
+  // show the dialog
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return alert;
+    },
+  );
 }
 
 class DataSearch extends SearchDelegate {
@@ -497,4 +588,3 @@ class DataSearch extends SearchDelegate {
           );
   }
 }
-

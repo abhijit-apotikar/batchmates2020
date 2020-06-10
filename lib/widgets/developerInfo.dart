@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 class DeveloperInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+
+     RouteSettings settings = ModalRoute.of(context).settings;
+     String photoUrl = settings.arguments;
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.black,
@@ -32,7 +35,7 @@ class DeveloperInfo extends StatelessWidget {
                 height: size.height * 0.4,
                 decoration: new BoxDecoration(
                   image: DecorationImage(
-                    image: new AssetImage('assets/images/abhi_green_dp.jpg'),
+                    image: new NetworkImage(photoUrl),
                     fit: BoxFit.fill,
                   ),
                 ),

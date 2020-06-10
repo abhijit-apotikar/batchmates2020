@@ -10,7 +10,7 @@ import './class/actualColorCodes.dart';
 import './widgets/myHomePage.dart';
 import './widgets/developerInfo.dart';
 import './widgets/detailInfo.dart';
-
+import './widgets/logInPage.dart';
 void main() {
   
   runApp(
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Student Info. App',
-      initialRoute: '/',
+      initialRoute: '/LogInPage',
       routes: {
         '/': (context) => Scaffold(
               body: MyHomePage(),
@@ -42,6 +42,9 @@ class MyApp extends StatelessWidget {
         ),
         '/DetailInfo':(context)=> Scaffold(
           body: DetailInfo(),
+        ),
+        '/LogInPage': (context)=> Scaffold(
+          body: LogInPage(),
         ),
       },
       theme: ThemeData(
