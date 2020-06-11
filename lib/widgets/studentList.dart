@@ -7,7 +7,7 @@ import '../class/colorCodeNotifier.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
 import '../data/mainData.dart';
-import '../services/batchListFromFirestore.dart';
+
 
 class StudentList extends StatelessWidget {
   final backgroundColor = Colors.white;
@@ -31,7 +31,7 @@ class StudentList extends StatelessWidget {
     String curCob = data[0]['batch']; //current_subject_combination
     String imgUrl = data[0]['imgUrl'];
 
-    String gender = data[0]['gender'];
+   // String gender = data[0]['gender'];
 
     String subCob; //subject_combination
     switch (curCob) {
@@ -77,32 +77,6 @@ class StudentList extends StatelessWidget {
         }
         break;
     }
-
-    // BatchList bl=new BatchList();
-    //List<Widget>
-    /*List batch;
-    BatchList bl = new BatchList();
-  
-    batch=bl.getBatch('m${mainIndex.aridx + 1}').then((record){
-      if(record.documents.isNotEmpty){
-        for(int i=0;i<record.documents.length;i++){
-           return recored.docrments.[]
-         // print(batch[i]);
-        }
-      }
-    });*/
-
-    /* var dr = Firestore.instance.collection('students').where('batch',isEqualTo: 'm${mainIndex.aridx + 1}').getDocuments().then((record){
-      if(record.documents.isNotEmpty){
-        batchStrength= record.documents.length.toString();
-        for(int i=0;i<record.documents.length;i++){
-          var studentList = record.documents[i].data;
-           print('new strength is ' +studentList.);
-          print(studentList);
-          print(studentList.values);
-        }
-      }
-    });*/
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -231,80 +205,6 @@ class StudentList extends StatelessWidget {
               ),
             ),
           ),
-          /*  Scrollbar(
-            child: Container(
-              color: localColorCode.ccBackgroundColor,
-              width: double.infinity,
-              height: (size.height) * 0.74,
-              padding: const EdgeInsets.only(left: 5, right: 5),
-              child: ListView.builder(
-                itemCount: data.length,
-                itemBuilder: (ctx, index) {
-                  return Card(
-                    color: localColorCode.ccListTileBackground,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      side: BorderSide(
-                        color: index % 2 == 0
-                            ? Colors.deepPurpleAccent
-                            : Colors.amberAccent,
-                        width: 1.0,
-                      ),
-                    ),
-                    child: ListTile(
-                      leading: CircleAvatar(
-                        backgroundImage: data[index]['imgUrl'] == null
-                            ? (data[index]['gender'] == 'Male'
-                                ? AssetImage('assets/images/sbman.png')
-                                : AssetImage('assets/images/woman.png'))
-                            : AssetImage(imgUrl),
-                      ),
-
-                      /*data[index]['gender'] == 'Female'
-                          ? Icon(
-                              Ionicons.md_female,
-                              color: localColorCode.ccFemale,
-                            )
-                          : Icon(
-                              Ionicons.md_male,
-                              color: localColorCode.ccMale,
-                            )*/
-
-                      title: Text(
-                        data[index]['fname'] + ' ' + data[index]['lname'],
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 18,
-                          color: localColorCode.ccListTileTitle,
-                        ),
-                      ),
-                      subtitle: Text(
-                        data[index]['batch'],
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 16,
-                          color: localColorCode.ccListTileSubTitle,
-                        ),
-                      ),
-                      trailing: Icon(
-                        Icons.more_vert,
-                        color: localColorCode.ccListTileTitle,
-                      ),
-                      onTap: () {
-                        ArgumentsDetail idx = new ArgumentsDetail(
-                            data[index]['fname'], data[index]['lname'], index);
-                        Navigator.pushNamed(
-                          context,
-                          '/DetailInfo',
-                          arguments: idx,
-                        );
-                      },
-                    ),
-                  );
-                },
-              ),
-            ),
-          ),*/
           Scrollbar(
             child: Container(
               color: localColorCode.ccBackgroundColor,
@@ -312,13 +212,88 @@ class StudentList extends StatelessWidget {
               height: (size.height) * 0.74,
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: StreamBuilder<QuerySnapshot>(
-                  stream: Firestore.instance.collection('students').snapshots(),
+                  stream: Firestore.instance
+                      .collection('students')
+                      .where('batch', isEqualTo: 'm${mainIndex.aridx + 1}')
+                      .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                    return new ListView(
-                      children: makeListWidget(
-                          snapshot, imgUrl, localColorCode, context),
-                    );
+                    if (snapshot.hasError)
+                      return Center(
+                          child: new Text(
+                        'Error: ${snapshot.error}',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 16,
+                          color: localColorCode.ccListTileSubTitle,
+                        ),
+                      ));
+
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: new CircularProgressIndicator(),
+                        );
+                      default:
+                        return new ListView.builder(
+                            itemCount: snapshot.data.documents.length,
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot data =
+                                  snapshot.data.documents[index];
+                              return Card(
+                                color: localColorCode.ccListTileBackground,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                  side: BorderSide(
+                                    color: index % 2 == 0
+                                        ? Colors.deepPurpleAccent
+                                        : Colors.amberAccent,
+                                    width: 1.0,
+                                  ),
+                                ),
+                                child: ListTile(
+                                  leading: CircleAvatar(
+                                    backgroundImage: data['imgUrl'] == null
+                                        ? (data['gender'] == 'Male'
+                                            ? AssetImage(
+                                                'assets/images/sbman.png')
+                                            : AssetImage(
+                                                'assets/images/woman.png'))
+                                        : AssetImage(imgUrl),
+                                  ),
+                                  title: Text(
+                                    data['fName'] + ' ' + data['lName'],
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 18,
+                                      color: localColorCode.ccListTileTitle,
+                                    ),
+                                  ),
+                                  subtitle: Text(
+                                    data['batch'],
+                                    style: TextStyle(
+                                      fontFamily: 'Nunito',
+                                      fontSize: 16,
+                                      color: localColorCode.ccListTileSubTitle,
+                                    ),
+                                  ),
+                                  trailing: Icon(
+                                    Icons.more_vert,
+                                    color: localColorCode.ccListTileTitle,
+                                  ),
+                                  onTap: () {
+                                    ArgumentsDetail idx = new ArgumentsDetail(
+                                        data['fName'], data['lName'], index);
+                                    Navigator.pushNamed(
+                                      context,
+                                      '/DetailInfo',
+                                      arguments: idx,
+                                    );
+                                  },
+                                ),
+                              );
+                            });
+                    }
                   }),
             ),
           ),
@@ -328,7 +303,7 @@ class StudentList extends StatelessWidget {
   }
 }
 
-List<Widget> makeListWidget(AsyncSnapshot snapshot, String imgUrl,
+/*List<Widget> makeListWidget(AsyncSnapshot snapshot, String imgUrl,
     final localColorCode, BuildContext context) {
   return snapshot.data.documents.map<Widget>((document) {
     return Card(
@@ -381,7 +356,7 @@ List<Widget> makeListWidget(AsyncSnapshot snapshot, String imgUrl,
       ),
     );
   }).toList();
-}
+}*/
 
 class DataSearch extends SearchDelegate {
   final int batchToSearch;
