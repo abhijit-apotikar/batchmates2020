@@ -9,7 +9,6 @@ import '../class/argumentsDetail.dart';
 import '../data/mainData.dart';
 import '../services/batchListFromFirestore.dart';
 
-
 class StudentList extends StatelessWidget {
   final backgroundColor = Colors.white;
   final appBarForeground = Colors.deepOrangeAccent;
@@ -31,9 +30,9 @@ class StudentList extends StatelessWidget {
 
     String curCob = data[0]['batch']; //current_subject_combination
     String imgUrl = data[0]['imgUrl'];
-    print(imgUrl);
+
     String gender = data[0]['gender'];
-    print(gender);
+
     String subCob; //subject_combination
     switch (curCob) {
       case 'M1':
@@ -79,20 +78,21 @@ class StudentList extends StatelessWidget {
         break;
     }
 
-   var batch;
+    // BatchList bl=new BatchList();
+    //List<Widget>
+    /*List batch;
     BatchList bl = new BatchList();
   
     batch=bl.getBatch('m${mainIndex.aridx + 1}').then((record){
       if(record.documents.isNotEmpty){
         for(int i=0;i<record.documents.length;i++){
-           batch = record.documents[i].data;
-          print(batch.documents.length);
+           return recored.docrments.[]
+         // print(batch[i]);
         }
       }
-    });
+    });*/
 
-
-   /* var dr = Firestore.instance.collection('students').where('batch',isEqualTo: 'm${mainIndex.aridx + 1}').getDocuments().then((record){
+    /* var dr = Firestore.instance.collection('students').where('batch',isEqualTo: 'm${mainIndex.aridx + 1}').getDocuments().then((record){
       if(record.documents.isNotEmpty){
         batchStrength= record.documents.length.toString();
         for(int i=0;i<record.documents.length;i++){
@@ -104,8 +104,6 @@ class StudentList extends StatelessWidget {
       }
     });*/
 
-    
-   
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
       appBar: AppBar(
@@ -233,14 +231,14 @@ class StudentList extends StatelessWidget {
               ),
             ),
           ),
-          Scrollbar(
+          /*  Scrollbar(
             child: Container(
               color: localColorCode.ccBackgroundColor,
               width: double.infinity,
               height: (size.height) * 0.74,
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: ListView.builder(
-                itemCount: 3,
+                itemCount: data.length,
                 itemBuilder: (ctx, index) {
                   return Card(
                     color: localColorCode.ccListTileBackground,
@@ -273,7 +271,7 @@ class StudentList extends StatelessWidget {
                             )*/
 
                       title: Text(
-                        batch['fname'] + ' ' + batch['lname'],
+                        data[index]['fname'] + ' ' + data[index]['lname'],
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 18,
@@ -281,7 +279,7 @@ class StudentList extends StatelessWidget {
                         ),
                       ),
                       subtitle: Text(
-                        batch['batch'],
+                        data[index]['batch'],
                         style: TextStyle(
                           fontFamily: 'Nunito',
                           fontSize: 16,
@@ -306,11 +304,83 @@ class StudentList extends StatelessWidget {
                 },
               ),
             ),
+          ),*/
+          Scrollbar(
+            child: Container(
+              color: localColorCode.ccBackgroundColor,
+              width: double.infinity,
+              height: (size.height) * 0.74,
+              padding: const EdgeInsets.only(left: 5, right: 5),
+              child: StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance.collection('students').snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    return new ListView(
+                      children: makeListWidget(
+                          snapshot, imgUrl, localColorCode, context),
+                    );
+                  }),
+            ),
           ),
         ],
       ),
     );
   }
+}
+
+List<Widget> makeListWidget(AsyncSnapshot snapshot, String imgUrl,
+    final localColorCode, BuildContext context) {
+  return snapshot.data.documents.map<Widget>((document) {
+    return Card(
+      color: localColorCode.ccListTileBackground,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+        side: BorderSide(
+        
+          //color: index % 2 == 0 ? Colors.deepPurpleAccent : Colors.amberAccent,
+          width: 1.0,
+        ),
+      ),
+      child: ListTile(
+        leading: CircleAvatar(
+          backgroundImage: document['imgUrl'] == null
+              ? (document['gender'] == 'male'
+                  ? AssetImage('assets/images/sbman.png')
+                  : AssetImage('assets/images/woman.png'))
+              : AssetImage(imgUrl),
+        ),
+        title: Text(
+          document['fName'] + ' ' + document['lName'],
+          style: TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 18,
+            color: localColorCode.ccListTileTitle,
+          ),
+        ),
+        subtitle: Text(
+          document['batch'],
+          style: TextStyle(
+            fontFamily: 'Nunito',
+            fontSize: 16,
+            color: localColorCode.ccListTileSubTitle,
+          ),
+        ),
+        trailing: Icon(
+          Icons.more_vert,
+          color: localColorCode.ccListTileTitle,
+        ),
+        onTap: () {
+          ArgumentsDetail idx =
+              new ArgumentsDetail(document['fName'], document['lName'], 1);
+          Navigator.pushNamed(
+            context,
+            '/DetailInfo',
+            arguments: idx,
+          );
+        },
+      ),
+    );
+  }).toList();
 }
 
 class DataSearch extends SearchDelegate {
