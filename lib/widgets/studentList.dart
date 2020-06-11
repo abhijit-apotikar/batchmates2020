@@ -254,7 +254,7 @@ class StudentList extends StatelessWidget {
                                 child: ListTile(
                                   leading: CircleAvatar(
                                     backgroundImage: data['imgUrl'] == null
-                                        ? (data['gender'] == 'Male'
+                                        ? (data['gender'] == 'male'
                                             ? AssetImage(
                                                 'assets/images/sbman.png')
                                             : AssetImage(
@@ -270,7 +270,7 @@ class StudentList extends StatelessWidget {
                                     ),
                                   ),
                                   subtitle: Text(
-                                    data['batch'],
+                                    data['batch'].toUpperCase(),
                                     style: TextStyle(
                                       fontFamily: 'Nunito',
                                       fontSize: 16,
