@@ -8,7 +8,6 @@ import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
 import '../data/mainData.dart';
 
-
 class StudentList extends StatelessWidget {
   final backgroundColor = Colors.white;
   final appBarForeground = Colors.deepOrangeAccent;
@@ -28,55 +27,7 @@ class StudentList extends StatelessWidget {
         .where((test) => test['batch'] == ('M${mainIndex.aridx + 1}'))
         .toList();
 
-    String curCob = data[0]['batch']; //current_subject_combination
     String imgUrl = data[0]['imgUrl'];
-
-   // String gender = data[0]['gender'];
-
-    String subCob; //subject_combination
-    switch (curCob) {
-      case 'M1':
-        {
-          subCob = 'SMCS';
-        }
-        break;
-
-      case 'M2':
-        {
-          subCob = 'PMCS';
-        }
-        break;
-
-      case 'M3':
-        {
-          subCob = 'PECS';
-        }
-        break;
-
-      case 'M4':
-        {
-          subCob = 'SECS';
-        }
-        break;
-
-      case 'M5':
-        {
-          subCob = 'PCCS';
-        }
-        break;
-
-      case 'M6':
-        {
-          subCob = 'PME';
-        }
-        break;
-
-      case 'M7':
-        {
-          subCob = 'PCM';
-        }
-        break;
-    }
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -121,89 +72,101 @@ class StudentList extends StatelessWidget {
               left: 5,
               right: 5,
             ),
-            child: Card(
-              color: localColorCode.ccBackgroundColor,
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-                side: BorderSide(
-                  color: Colors.redAccent,
-                  width: 1.5,
-                ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.only(left: 5, right: 5),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Text(
-                            'Batch Strength : ${data.length} ',
-                            style: TextStyle(
-                              fontFamily: 'Nunito',
-                              fontSize: 18,
-                              fontWeight: FontWeight.bold,
-                              color:
-                                  localColorCode.ccBatchDetailsForegroundColor,
-                            ),
-                          ),
-                          Container(
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+            child: new StreamBuilder(
+                stream: Firestore.instance
+                    .collection('batches')
+                    .document('m${mainIndex.aridx + 1}')
+                    .snapshots(),
+                builder: (context, snapshot) {
+                  if (!snapshot.hasData) {
+                    return Center(child: new CircularProgressIndicator());
+                  }
+                  var batchDocument = snapshot.data;
+                  return new Card(
+                    color: localColorCode.ccBackgroundColor,
+                    elevation: 0,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: BorderSide(
+                        color: Colors.redAccent,
+                        width: 1.5,
+                      ),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 5, right: 5),
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 5),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: <Widget>[
-                                Icon(
-                                  Ionicons.md_female,
-                                  size: 18,
-                                  color: localColorCode.ccFemale,
-                                ),
                                 Text(
-                                  '${data.where((student) => student['gender'] == 'Female').length} ',
+                                  'Batch Strength : ${batchDocument['strength']} ',
                                   style: TextStyle(
-                                    fontSize: 18,
                                     fontFamily: 'Nunito',
+                                    fontSize: 18,
                                     fontWeight: FontWeight.bold,
-                                    color: localColorCode.ccFemale,
+                                    color: localColorCode
+                                        .ccBatchDetailsForegroundColor,
                                   ),
                                 ),
-                                Icon(
-                                  Ionicons.md_male,
-                                  size: 18,
-                                  color: localColorCode.ccMale,
-                                ),
-                                Text(
-                                  '${data.where((student) => student['gender'] == 'Male').length}',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontFamily: 'Nunito',
-                                    fontWeight: FontWeight.bold,
-                                    color: localColorCode.ccMale,
+                                Container(
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Icon(
+                                        Ionicons.md_female,
+                                        size: 18,
+                                        color: localColorCode.ccFemale,
+                                      ),
+                                      Text(
+                                        '${batchDocument['girls']} ',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                          color: localColorCode.ccFemale,
+                                        ),
+                                      ),
+                                      Icon(
+                                        Ionicons.md_male,
+                                        size: 18,
+                                        color: localColorCode.ccMale,
+                                      ),
+                                      Text(
+                                        '${batchDocument['boys']}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontFamily: 'Nunito',
+                                          fontWeight: FontWeight.bold,
+                                          color: localColorCode.ccMale,
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ],
                             ),
-                          ),
-                        ],
-                      ),
-                      Text(
-                        'Subject Combination : $subCob',
-                        style: TextStyle(
-                          fontFamily: 'Nunito',
-                          fontSize: 18,
-                          fontWeight: FontWeight.bold,
-                          color: localColorCode.ccBatchDetailsForegroundColor,
+                            Text(
+                              'Subject Combination : ${batchDocument['subComb']}',
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: localColorCode
+                                    .ccBatchDetailsForegroundColor,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
+                    ),
+                  );
+                }),
           ),
           Scrollbar(
             child: Container(
@@ -302,61 +265,6 @@ class StudentList extends StatelessWidget {
     );
   }
 }
-
-/*List<Widget> makeListWidget(AsyncSnapshot snapshot, String imgUrl,
-    final localColorCode, BuildContext context) {
-  return snapshot.data.documents.map<Widget>((document) {
-    return Card(
-      color: localColorCode.ccListTileBackground,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-        side: BorderSide(
-        
-          //color: index % 2 == 0 ? Colors.deepPurpleAccent : Colors.amberAccent,
-          width: 1.0,
-        ),
-      ),
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: document['imgUrl'] == null
-              ? (document['gender'] == 'male'
-                  ? AssetImage('assets/images/sbman.png')
-                  : AssetImage('assets/images/woman.png'))
-              : AssetImage(imgUrl),
-        ),
-        title: Text(
-          document['fName'] + ' ' + document['lName'],
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 18,
-            color: localColorCode.ccListTileTitle,
-          ),
-        ),
-        subtitle: Text(
-          document['batch'],
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 16,
-            color: localColorCode.ccListTileSubTitle,
-          ),
-        ),
-        trailing: Icon(
-          Icons.more_vert,
-          color: localColorCode.ccListTileTitle,
-        ),
-        onTap: () {
-          ArgumentsDetail idx =
-              new ArgumentsDetail(document['fName'], document['lName'], 1);
-          Navigator.pushNamed(
-            context,
-            '/DetailInfo',
-            arguments: idx,
-          );
-        },
-      ),
-    );
-  }).toList();
-}*/
 
 class DataSearch extends SearchDelegate {
   final int batchToSearch;
@@ -468,14 +376,6 @@ class DataSearch extends SearchDelegate {
                 ],
               ),
             ),
-            /*Text(
-              'No result fonund for $query',
-              style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  fontFamily: 'Nunito'),
-            ),*/
           )
         : query.isEmpty
             ? Center(
