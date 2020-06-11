@@ -23,11 +23,6 @@ class StudentList extends StatelessWidget {
 
     RouteSettings settings = ModalRoute.of(context).settings;
     Arguments mainIndex = settings.arguments;
-    var data = mainData
-        .where((test) => test['batch'] == ('M${mainIndex.aridx + 1}'))
-        .toList();
-
-    String imgUrl = data[0]['imgUrl'];
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -216,14 +211,12 @@ class StudentList extends StatelessWidget {
                                 ),
                                 child: ListTile(
                                   leading: CircleAvatar(
-                                    backgroundImage: data['imgUrl'] == null
-                                        ? (data['gender'] == 'male'
-                                            ? AssetImage(
-                                                'assets/images/sbman.png')
-                                            : AssetImage(
-                                                'assets/images/woman.png'))
-                                        : AssetImage(imgUrl),
-                                  ),
+                                      backgroundImage:
+                                          (data['gender'] == 'male')
+                                              ? AssetImage(
+                                                  'assets/images/sbman.png')
+                                              : AssetImage(
+                                                  'assets/images/woman.png')),
                                   title: Text(
                                     data['fName'] + ' ' + data['lName'],
                                     style: TextStyle(
