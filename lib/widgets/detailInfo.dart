@@ -1,21 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gradbatch2020/class/marksDataObj.dart';
 import 'package:provider/provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../class/argumentsForDetailInfo.dart';
 import '../class/colorCodeNotifier.dart';
-import '../data/mainData.dart';
-import '../data/result/bscSem1w17.dart';
-import '../data/result/bscSem2s18.dart';
-import '../data/result/bscSem3w18.dart';
-import '../data/result/bscSem4s19.dart';
-import '../data/result/bscSem5w19.dart';
-
-import '../class/marksDataModel.dart';
-import '../class/marksDataObj.dart';
-import './batchChart.dart';
-import '../services/serviceToChart.dart';
-import '../services/creatingMarksObj.dart';
-import '../services/creatingChartData.dart';
 
 final backgroundColor = Colors.white;
 final appBarForeground = Colors.deepOrangeAccent;
@@ -28,7 +18,7 @@ class DetailInfo extends StatefulWidget {
 }
 
 class _DetailInfoState extends State<DetailInfo> {
-  String dropdownValue = 'Sem 1';
+  String dropdownValue = 'bscSem1W2017';
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
@@ -39,57 +29,6 @@ class _DetailInfoState extends State<DetailInfo> {
     final Size size = MediaQuery.of(context).size;
 
     final data = nameInfo.data;
-    final fname = nameInfo.fname;
-    print(fname);
-    final lname = nameInfo.lname;
-
-    var exactData = mainData
-        .where(
-            (student) => student['fname'] == fname && student['lname'] == lname)
-        .toList();
-    // var exactfname = exactData[0]['fname'];
-    // var exactlname = exactData[0]['lname'];
-    var batch = exactData[0]['batch'];
-    // var imgUrl = exactData[0]['imgUrl'];
-    // var gender = exactData[0]['gender'];
-
-    int batchIdx;
-    if (batch == 'M1')
-      batchIdx = 1;
-    else if (batch == 'M2')
-      batchIdx = 2;
-    else if (batch == 'M3')
-      batchIdx = 3;
-    else if (batch == 'M4')
-      batchIdx = 4;
-    else if (batch == 'M5')
-      batchIdx = 5;
-    else if (batch == 'M6')
-      batchIdx = 6;
-    else if (batch == 'M7') batchIdx = 7;
-
-    ServiceToChart stc = ServiceToChart(fname, lname);
-    CreatingMarksObj cmo = CreatingMarksObj(batchIdx);
-    CreatingChartData ccd = CreatingChartData(batchIdx);
-
-    var exactMarksData1 = stc.returnExactRecord(marksData);
-    var exactMarksData2 = stc.returnExactRecord(marksData2);
-    var exactMarksData3 = stc.returnExactRecord(marksData3);
-    var exactMarksData4 = stc.returnExactRecord(marksData4);
-    var exactMarksData5 = stc.returnExactRecord(marksData5);
-    //print(exactMarksData2[0]['sem']);
-
-    Marks marks1 = cmo.returnMarksObj(exactMarksData1);
-    Marks marks2 = cmo.returnMarksObj(exactMarksData2);
-    Marks marks3 = cmo.returnMarksObj(exactMarksData3);
-    Marks marks4 = cmo.returnMarksObj(exactMarksData4);
-    Marks marks5 = cmo.returnMarksObj(exactMarksData5);
-
-    final List<MarksData> chartData1 = ccd.returnChartData(marks1);
-    final List<MarksData> chartData2 = ccd.returnChartData(marks2);
-    final List<MarksData> chartData3 = ccd.returnChartData(marks3);
-    final List<MarksData> chartData4 = ccd.returnChartData(marks4);
-    final List<MarksData> chartData5 = ccd.returnChartData(marks5);
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -397,7 +336,7 @@ class _DetailInfoState extends State<DetailInfo> {
                       dropdownValue = newValue;
                     });
                   },
-                  items: <String>['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5']
+                  items: <String>['bscSem1W2017', 'bscSem2S2018', 'bscSem3W2018', 'bscSem4S2019', 'bscSem5W2019']
                       .map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -409,31 +348,49 @@ class _DetailInfoState extends State<DetailInfo> {
             ),
             Padding(
               padding: const EdgeInsets.all(5),
-              child: Column(
-                children: <Widget>[
-                  ChartWidget(chartData1, exactMarksData1[0]['sem'], batchIdx),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ChartWidget(chartData2, exactMarksData2[0]['sem'], batchIdx),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ChartWidget(chartData3, exactMarksData3[0]['sem'], batchIdx),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ChartWidget(chartData4, exactMarksData4[0]['sem'], batchIdx),
-                  SizedBox(
-                    height: 30,
-                  ),
-                  ChartWidget(chartData5, exactMarksData5[0]['sem'], batchIdx),
-                ],
-              ),
-            ),
-          ],
+              child: Container(
+      decoration: BoxDecoration(
+        border: Border(
+          bottom: BorderSide(
+            width: 2,
+            color: Colors.grey,
+          ),
         ),
       ),
-    );
+      height: size.height * 0.65,
+      width: size.width,
+      child: StreamBuilder<QuerySnapshot>(
+                  stream: Firestore.instance
+                      .collection('results')
+                      .where('examName', isEqualTo: dropdownValue)
+                      .snapshots(),
+                  builder: (BuildContext context,
+                      AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (snapshot.hasError)
+                      return Center(
+                          child: new Text(
+                        'Error: ${snapshot.error}',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 16,
+                          color: localColorCode.ccListTileSubTitle,
+                        ),
+                      ));
+
+                    switch (snapshot.connectionState) {
+                      case ConnectionState.waiting:
+                        return Center(
+                          child: new CircularProgressIndicator(),
+                        );
+                      default:
+                        return new ListView.builder(
+                            itemCount: snapshot.data.documents.length,
+                            itemBuilder: (context, index) {
+                              DocumentSnapshot data =
+                                  snapshot.data.documents[index];
+                              return 
+    
   }
 }
+
+

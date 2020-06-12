@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:gradbatch2020/class/marksDataObj.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../class/marksDataObj.dart';
 
 class ChartWidget extends StatelessWidget {
-  final List<MarksData> chartData;
+  final List<MarksDataObj> chartData;
   final int sem;
   final int idx;
   final examName = [
@@ -56,52 +57,53 @@ class ChartWidget extends StatelessWidget {
           enable: true,
           // format: 'series.name',
         ),
-        series: <ChartSeries<MarksData, String>>[
-          ColumnSeries<MarksData, String>(
+        series: <ChartSeries<MarksDataObj, String>>[
+          ColumnSeries<MarksDataObj, String>(
             name: 'OutOf100/75',
             // opacity: 0.9,
             // width: 0.4,
             color: Colors.amber,
             dataSource: chartData,
-            xValueMapper: (MarksData sales, _) => sales.sub,
-            yValueMapper: (MarksData sales, _) => (sales.tMarks + sales.internal),
+            xValueMapper: (MarksDataObj sales, _) => sales.sub,
+            yValueMapper: (MarksDataObj sales, _) =>
+                (sales.tMarks + sales.internal),
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
               //  labelAlignment: ChartDataLabelAlignment.middle,
             ),
           ),
-          ColumnSeries<MarksData, String>(
+          ColumnSeries<MarksDataObj, String>(
             name: '${examName[sem - 1]}',
             width: 0.7,
             color: Colors.deepOrangeAccent,
             dataSource: chartData,
-            xValueMapper: (MarksData sales, _) => sales.sub,
-            yValueMapper: (MarksData sales, _) => sales.tMarks,
+            xValueMapper: (MarksDataObj sales, _) => sales.sub,
+            yValueMapper: (MarksDataObj sales, _) => sales.tMarks,
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
             ),
           ),
-          ColumnSeries<MarksData, String>(
+          ColumnSeries<MarksDataObj, String>(
             name: 'Practical',
             opacity: 0.9,
             width: 0.5,
             color: Colors.cyan,
             dataSource: chartData,
-            xValueMapper: (MarksData sales, _) => sales.sub,
-            yValueMapper: (MarksData sales, _) => sales.pract,
+            xValueMapper: (MarksDataObj sales, _) => sales.sub,
+            yValueMapper: (MarksDataObj sales, _) => sales.pract,
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.top,
             ),
           ),
-          ColumnSeries<MarksData, String>(
+          ColumnSeries<MarksDataObj, String>(
             name: 'Internal',
             opacity: 1,
             width: 0.3,
             color: Colors.deepPurpleAccent,
             dataSource: chartData,
-            xValueMapper: (MarksData sales, _) => sales.sub,
-            yValueMapper: (MarksData sales, _) => sales.internal,
+            xValueMapper: (MarksDataObj sales, _) => sales.sub,
+            yValueMapper: (MarksDataObj sales, _) => sales.internal,
             dataLabelSettings: DataLabelSettings(
               isVisible: true,
               labelAlignment: ChartDataLabelAlignment.middle,
