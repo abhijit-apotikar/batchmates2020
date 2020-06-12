@@ -22,7 +22,13 @@ final appBarForeground = Colors.deepOrangeAccent;
 final appBarBackground = Colors.white;
 final appBarArea = Colors.white;
 
-class DetailInfo extends StatelessWidget {
+class DetailInfo extends StatefulWidget {
+  @override
+  _DetailInfoState createState() => _DetailInfoState();
+}
+
+class _DetailInfoState extends State<DetailInfo> {
+  String dropdownValue = 'Sem 1';
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
@@ -87,12 +93,14 @@ class DetailInfo extends StatelessWidget {
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
       appBar: AppBar(
-         iconTheme: new IconThemeData(
+        iconTheme: new IconThemeData(
           color: localColorCode.ccAppBarForegroundColor,
           size: 28,
         ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios,),
+          icon: Icon(
+            Icons.arrow_back_ios,
+          ),
           onPressed: () {
             Navigator.pop(context);
           },
@@ -360,8 +368,8 @@ class DetailInfo extends StatelessWidget {
               ),
             ),
             Container(
-              child: Center(
-                child: Text(
+              child: Row(children: <Widget>[
+                Text(
                   'Semester Marks',
                   style: TextStyle(
                     fontFamily: 'Nunito',
@@ -370,7 +378,35 @@ class DetailInfo extends StatelessWidget {
                     color: Colors.deepOrangeAccent,
                   ),
                 ),
-              ),
+                DropdownButton<String>(
+                  value: dropdownValue,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepOrangeAccent,
+                  ),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      dropdownValue = newValue;
+                    });
+                  },
+                  items: <String>['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4', 'Sem 5']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ]),
             ),
             Padding(
               padding: const EdgeInsets.all(5),
