@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../class/colorCodeNotifier.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
+import '../class/argumentsForDetailInfo.dart';
 import '../data/mainData.dart';
 
 class StudentList extends StatelessWidget {
@@ -238,8 +239,9 @@ class StudentList extends StatelessWidget {
                                     color: localColorCode.ccListTileTitle,
                                   ),
                                   onTap: () {
-                                    ArgumentsDetail idx = new ArgumentsDetail(
-                                        data['fName'], data['lName'], index);
+                                    ArgumentsForDetailInfo idx =
+                                        new ArgumentsForDetailInfo(
+                                            data, data['fName'], data['lName']);
                                     Navigator.pushNamed(
                                       context,
                                       '/DetailInfo',

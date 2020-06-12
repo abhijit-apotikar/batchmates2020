@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../class/argumentsDetail.dart';
+import '../class/argumentsForDetailInfo.dart';
 import '../class/colorCodeNotifier.dart';
 import '../data/mainData.dart';
 import '../data/result/bscSem1w17.dart';
@@ -34,10 +34,11 @@ class _DetailInfoState extends State<DetailInfo> {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
     RouteSettings settings = ModalRoute.of(context).settings;
-    ArgumentsDetail nameInfo = settings.arguments;
+    ArgumentsForDetailInfo nameInfo = settings.arguments;
 
     final Size size = MediaQuery.of(context).size;
 
+    final data = nameInfo.data;
     final fname = nameInfo.fname;
     print(fname);
     final lname = nameInfo.lname;
@@ -46,11 +47,11 @@ class _DetailInfoState extends State<DetailInfo> {
         .where(
             (student) => student['fname'] == fname && student['lname'] == lname)
         .toList();
-    var exactfname = exactData[0]['fname'];
-    var exactlname = exactData[0]['lname'];
+    // var exactfname = exactData[0]['fname'];
+    // var exactlname = exactData[0]['lname'];
     var batch = exactData[0]['batch'];
-    var imgUrl = exactData[0]['imgUrl'];
-    var gender = exactData[0]['gender'];
+    // var imgUrl = exactData[0]['imgUrl'];
+    // var gender = exactData[0]['gender'];
 
     int batchIdx;
     if (batch == 'M1')
@@ -106,7 +107,7 @@ class _DetailInfoState extends State<DetailInfo> {
           },
         ),
         title: new Text(
-          exactfname + ' ' + exactlname,
+          '${data['fName']} + ' ' + ${data['lName']}',
           style: TextStyle(
             fontFamily: 'Nunito',
             fontSize: 24,
@@ -122,11 +123,9 @@ class _DetailInfoState extends State<DetailInfo> {
               height: (size.height) * 0.4,
               decoration: new BoxDecoration(
                 image: DecorationImage(
-                  image: imgUrl == null
-                      ? (gender == 'Male'
-                          ? AssetImage('assets/images/sbman.png')
-                          : AssetImage('assets/images/woman.png'))
-                      : AssetImage(imgUrl),
+                  image: data['gender'] == 'male'
+                      ? AssetImage('assets/images/sbman.png')
+                      : AssetImage('assets/images/woman.png'),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -163,7 +162,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['fname']} ${exactData[0]['lname']}',
+                            '${data['fName']} ${data['lName']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -185,7 +184,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['batch']}',
+                            '${data['batch']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -207,7 +206,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['gender']}',
+                            '${data['gender']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -229,7 +228,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['mono']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -264,7 +263,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['landmark']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -286,7 +285,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['locality']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -308,7 +307,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['c/v']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -330,7 +329,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['pin']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -352,7 +351,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${exactData[0]['hobbies']}',
+                            'null',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
