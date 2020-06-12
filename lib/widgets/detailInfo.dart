@@ -184,7 +184,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${data['batch']}',
+                            '${data['batch']}'.toUpperCase(),
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
