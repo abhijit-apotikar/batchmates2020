@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../class/argumentDetailsOther.dart';
+import '../class/argumentsDetail.dart';
 import '../class/colorCodeNotifier.dart';
 import '../data/mainData.dart';
 import '../data/result/bscSem1w17.dart';
@@ -22,37 +22,29 @@ final appBarForeground = Colors.deepOrangeAccent;
 final appBarBackground = Colors.white;
 final appBarArea = Colors.white;
 
-class DetailInfo extends StatefulWidget {
-  @override
-  _DetailInfoState createState() => _DetailInfoState();
-}
-
-class _DetailInfoState extends State<DetailInfo> {
+class DetailInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
     RouteSettings settings = ModalRoute.of(context).settings;
-    ArgumentDetailsOther nameInfo = settings.arguments;
+    ArgumentsDetail nameInfo = settings.arguments;
 
     final Size size = MediaQuery.of(context).size;
 
     final fname = nameInfo.fname;
+    print(fname);
     final lname = nameInfo.lname;
-    final data = nameInfo.data;
-
-    String dropdownValue;
 
     var exactData = mainData
         .where(
             (student) => student['fname'] == fname && student['lname'] == lname)
         .toList();
-    /*var exactfname = exactData[0]['fname'];
+    var exactfname = exactData[0]['fname'];
     var exactlname = exactData[0]['lname'];
-    
-    var imgUrl = exactData[0]['imgUrl'];
-    var gender = exactData[0]['gender'];*/
     var batch = exactData[0]['batch'];
+    var imgUrl = exactData[0]['imgUrl'];
+    var gender = exactData[0]['gender'];
 
     int batchIdx;
     if (batch == 'M1')
@@ -69,7 +61,7 @@ class _DetailInfoState extends State<DetailInfo> {
       batchIdx = 6;
     else if (batch == 'M7') batchIdx = 7;
 
-    ServiceToChart stc = ServiceToChart(data['fName'], data['lName']);
+    ServiceToChart stc = ServiceToChart(fname, lname);
     CreatingMarksObj cmo = CreatingMarksObj(batchIdx);
     CreatingChartData ccd = CreatingChartData(batchIdx);
 
@@ -95,20 +87,18 @@ class _DetailInfoState extends State<DetailInfo> {
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
       appBar: AppBar(
-        iconTheme: new IconThemeData(
+         iconTheme: new IconThemeData(
           color: localColorCode.ccAppBarForegroundColor,
           size: 28,
         ),
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios,
-          ),
+          icon: Icon(Icons.arrow_back_ios,),
           onPressed: () {
             Navigator.pop(context);
           },
         ),
         title: new Text(
-          data['fName'] + ' ' + data['lName'],
+          exactfname + ' ' + exactlname,
           style: TextStyle(
             fontFamily: 'Nunito',
             fontSize: 24,
@@ -124,9 +114,11 @@ class _DetailInfoState extends State<DetailInfo> {
               height: (size.height) * 0.4,
               decoration: new BoxDecoration(
                 image: DecorationImage(
-                  image: data['gender'] == 'male'
-                      ? AssetImage('assets/images/sbman.png')
-                      : AssetImage('assets/images/woman.png'),
+                  image: imgUrl == null
+                      ? (gender == 'Male'
+                          ? AssetImage('assets/images/sbman.png')
+                          : AssetImage('assets/images/woman.png'))
+                      : AssetImage(imgUrl),
                   fit: BoxFit.fill,
                 ),
               ),
@@ -163,7 +155,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${data['fName']} ${data['lName']}',
+                            '${exactData[0]['fname']} ${exactData[0]['lname']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -185,7 +177,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${data['batch']}'.toUpperCase(),
+                            '${exactData[0]['batch']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -207,7 +199,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${data['gender']}',
+                            '${exactData[0]['gender']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -229,7 +221,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['mono']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -264,7 +256,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['landmark']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -286,7 +278,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['locality']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -308,7 +300,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['c/v']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -330,7 +322,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['pin']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -352,7 +344,7 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            'null',
+                            '${exactData[0]['hobbies']}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -368,36 +360,17 @@ class _DetailInfoState extends State<DetailInfo> {
               ),
             ),
             Container(
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text(
-                      ' Semester ',
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.deepOrangeAccent,
-                      ),
-                    ),
-                  ]),
-            ),
-            DropdownButton<String>(
-              value: dropdownValue,
-               hint: Text("Select Semester"),
-              onChanged: (String newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
-              },
-              isDense: true,
-              items: <String>['One', 'Two', 'Free', 'Four']
-                  .map<DropdownMenuItem<String>>((String value) {
-                return DropdownMenuItem<String>(
-                  value: value,
-                  child: Text(value),
-                );
-              }).toList(),
+              child: Center(
+                child: Text(
+                  'Semester Marks',
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepOrangeAccent,
+                  ),
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(5),

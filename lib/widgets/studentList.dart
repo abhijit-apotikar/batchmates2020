@@ -6,7 +6,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../class/colorCodeNotifier.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
-import '../class/argumentDetailsOther.dart';
 import '../data/mainData.dart';
 
 class StudentList extends StatelessWidget {
@@ -199,7 +198,6 @@ class StudentList extends StatelessWidget {
                             itemBuilder: (context, index) {
                               DocumentSnapshot data =
                                   snapshot.data.documents[index];
-                                  
                               return Card(
                                 color: localColorCode.ccListTileBackground,
                                 shape: RoundedRectangleBorder(
@@ -240,8 +238,8 @@ class StudentList extends StatelessWidget {
                                     color: localColorCode.ccListTileTitle,
                                   ),
                                   onTap: () {
-                                    ArgumentDetailsOther idx = new ArgumentDetailsOther(
-                                        data['fName'], data['lName'], index,data);
+                                    ArgumentsDetail idx = new ArgumentsDetail(
+                                        data['fName'], data['lName'], index);
                                     Navigator.pushNamed(
                                       context,
                                       '/DetailInfo',
