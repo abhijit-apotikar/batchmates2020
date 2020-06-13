@@ -6,6 +6,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../class/argumentsForDetailInfo.dart';
 import '../class/colorCodeNotifier.dart';
+import '../services/serviceToChartData.dart';
 
 final backgroundColor = Colors.white;
 final appBarForeground = Colors.deepOrangeAccent;
@@ -46,7 +47,7 @@ class _DetailInfoState extends State<DetailInfo> {
           },
         ),
         title: new Text(
-          '${data['fName']} + ' ' + ${data['lName']}',
+          '${data['fName']} ${data['lName']}',
           style: TextStyle(
             fontFamily: 'Nunito',
             fontSize: 24,
@@ -336,8 +337,13 @@ class _DetailInfoState extends State<DetailInfo> {
                       dropdownValue = newValue;
                     });
                   },
-                  items: <String>['bscSem1W2017', 'bscSem2S2018', 'bscSem3W2018', 'bscSem4S2019', 'bscSem5W2019']
-                      .map<DropdownMenuItem<String>>((String value) {
+                  items: <String>[
+                    'bscSem1W2017',
+                    'bscSem2S2018',
+                    'bscSem3W2018',
+                    'bscSem4S2019',
+                    'bscSem5W2019'
+                  ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
                       child: Text(value),
@@ -349,20 +355,21 @@ class _DetailInfoState extends State<DetailInfo> {
             Padding(
               padding: const EdgeInsets.all(5),
               child: Container(
-      decoration: BoxDecoration(
-        border: Border(
-          bottom: BorderSide(
-            width: 2,
-            color: Colors.grey,
-          ),
-        ),
-      ),
-      height: size.height * 0.65,
-      width: size.width,
-      child: StreamBuilder<QuerySnapshot>(
+                decoration: BoxDecoration(
+                  border: Border(
+                    bottom: BorderSide(
+                      width: 2,
+                      color: Colors.grey,
+                    ),
+                  ),
+                ),
+                height: size.height * 0.65,
+                width: size.width,
+                child: StreamBuilder(
                   stream: Firestore.instance
-                      .collection('results')
-                      .where('examName', isEqualTo: dropdownValue)
+                      .collection(dropdownValue)
+                      .where('${dropdownValue}_fName', isEqualTo: data['fName'])
+                      .where('${dropdownValue}_fName', isEqualTo: data['lName'])
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
@@ -376,7 +383,6 @@ class _DetailInfoState extends State<DetailInfo> {
                           color: localColorCode.ccListTileSubTitle,
                         ),
                       ));
-
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                         return Center(
@@ -388,9 +394,109 @@ class _DetailInfoState extends State<DetailInfo> {
                             itemBuilder: (context, index) {
                               DocumentSnapshot data =
                                   snapshot.data.documents[index];
-                              return 
-    
+                              print(data.data.containsKey('stat'));
+                              var chartData =
+                                  new ServiceToChartData().giveMarks(data);
+                              return SfCartesianChart(
+                                enableSideBySideSeriesPlacement: false,
+                                primaryXAxis: CategoryAxis(
+                                  title: AxisTitle(text: 'Subjects'),
+                                ),
+                                primaryYAxis: NumericAxis(
+                                  minimum: 0,
+                                  maximum: 100,
+                                  title: AxisTitle(text: 'marks'),
+                                  interval: 5,
+                                ),
+                                legend: Legend(
+                                  isVisible: true,
+                                  position: LegendPosition.bottom,
+                                  overflowMode: LegendItemOverflowMode.wrap,
+                                  title: LegendTitle(
+                                      text: dropdownValue,
+                                      textStyle: ChartTextStyle(
+                                          color: Colors.red,
+                                          fontSize: 15,
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.w900)),
+                                ),
+                                tooltipBehavior: TooltipBehavior(
+                                  enable: true,
+                                  // format: 'series.name',
+                                ),
+                                series: <ChartSeries<MarksDataObj, String>>[
+                                  ColumnSeries<MarksDataObj, String>(
+                                    name: 'OutOf100/75',
+                                    // opacity: 0.9,
+                                    // width: 0.4,
+                                    color: Colors.amber,
+                                    dataSource: chartData,
+                                    xValueMapper: (MarksDataObj sales, _) =>
+                                        sales.sub,
+                                    yValueMapper: (MarksDataObj sales, _) =>
+                                        (sales.tMarks + sales.internal),
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      //  labelAlignment: ChartDataLabelAlignment.middle,
+                                    ),
+                                  ),
+                                  /*  ColumnSeries<MarksData, String>(
+                                    name: '${examName[sem - 1]}',
+                                    width: 0.7,
+                                    color: Colors.deepOrangeAccent,
+                                    dataSource: chartData,
+                                    xValueMapper: (MarksData sales, _) =>
+                                        sales.sub,
+                                    yValueMapper: (MarksData sales, _) =>
+                                        sales.tMarks,
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                    ),
+                                  ),
+                                  ColumnSeries<MarksData, String>(
+                                    name: 'Practical',
+                                    opacity: 0.9,
+                                    width: 0.5,
+                                    color: Colors.cyan,
+                                    dataSource: chartData,
+                                    xValueMapper: (MarksData sales, _) =>
+                                        sales.sub,
+                                    yValueMapper: (MarksData sales, _) =>
+                                        sales.pract,
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      labelAlignment:
+                                          ChartDataLabelAlignment.top,
+                                    ),
+                                  ),
+                                  ColumnSeries<MarksData, String>(
+                                    name: 'Internal',
+                                    opacity: 1,
+                                    width: 0.3,
+                                    color: Colors.deepPurpleAccent,
+                                    dataSource: chartData,
+                                    xValueMapper: (MarksData sales, _) =>
+                                        sales.sub,
+                                    yValueMapper: (MarksData sales, _) =>
+                                        sales.internal,
+                                    dataLabelSettings: DataLabelSettings(
+                                      isVisible: true,
+                                      labelAlignment:
+                                          ChartDataLabelAlignment.middle,
+                                    ),
+                                  ),*/
+                                ],
+                              );
+                              // var doc = snapshot.data.documents;
+                            });
+                    }
+                  },
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
-
-

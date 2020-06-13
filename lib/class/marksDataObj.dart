@@ -1,5 +1,5 @@
 class MarksDataObj {
-  MarksDataObj(this.sub, this.tMarks, this.internal, this.pract);
+  MarksDataObj(this.sub, this.internal, this.tMarks, this.pract);
 
   final String sub;
   final int tMarks;
