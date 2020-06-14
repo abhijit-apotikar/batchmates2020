@@ -18,23 +18,26 @@ class _LogInPageState extends State<LogInPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            FlatButton.icon(
-                onPressed: () async {
-                  dynamic result = await _authService.signInWithGoogle();
-                  if (result == null) {
-                    print('Error siging in');
-                  } else {
-                    print('Signed In');
-                    print(result);
-                  }
-                },
-                icon: Icon(
-                  Ionicons.logo_google,
-                ),
-                label: Text(
-                  'Google Sign In',
-                  style: TextStyle(fontSize: 28),
-                )),
+            Material(
+              elevation: 5,
+              child: FlatButton.icon(
+                  onPressed: () async {
+                    dynamic result = await _authService.signInWithGoogle();
+                    if (result == null) {
+                      print('Error siging in');
+                    } else {
+                      print('Signed In');
+                      print(result);
+                    }
+                  },
+                  icon: Icon(
+                    Ionicons.logo_google,
+                  ),
+                  label: Text(
+                    'Google Sign In',
+                    style: TextStyle(fontSize: 28),
+                  )),
+            ),
           ],
         ),
       ),

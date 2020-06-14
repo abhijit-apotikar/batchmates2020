@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'gradBatch2020',
-        home: MainWrapper(),
+        //home: MainWrapper(),
         routes: {
           '/': (context) => Scaffold(
                 body: MainWrapper(),

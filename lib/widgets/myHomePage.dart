@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -7,9 +8,10 @@ import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
-import '../class/LogInDetail.dart';
+//import '../class/LogInDetail.dart';
 
 import '../data/mainData.dart';
+import '../services/authService.dart';
 
 //import '../widgets/logInPage.dart';
 
@@ -18,9 +20,10 @@ class MyHomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
-    RouteSettings settings = ModalRoute.of(context).settings;
-    LogInDetail lid = settings.arguments;
-
+    //RouteSettings settings = ModalRoute.of(context).settings;
+    //LogInDetail lid = settings.arguments;
+    final user = Provider.of<FirebaseUser>(context);
+    final AuthService _authService = new AuthService();
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(
@@ -123,7 +126,7 @@ class MyHomePage extends StatelessWidget {
                   GestureDetector(
                     onTap: () {
                       Navigator.pushNamed(context, '/DeveloperInfo',
-                          arguments: lid.user.photoUrl);
+                          arguments: user.photoUrl);
                     },
                     child: Hero(
                       tag: 'Developer',
@@ -136,10 +139,10 @@ class MyHomePage extends StatelessWidget {
                             width: 2,
                             color: localColorCode.ccAppBarForegroundColor,
                           ),
-                          image: new DecorationImage(
+                          /* image: new DecorationImage(
                             fit: BoxFit.fill,
-                            image: new NetworkImage('${lid.user.photoUrl}'),
-                          ),
+                            image: new NetworkImage('${user.photoUrl}'),
+                          )*/
                         ),
                       ),
                     ),
@@ -153,7 +156,7 @@ class MyHomePage extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   Text(
-                    '${lid.user.displayName}',
+                    '${user.displayName}',
                     style: TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 22,
@@ -161,8 +164,8 @@ class MyHomePage extends StatelessWidget {
                       color: localColorCode.ccAppBarForegroundColor,
                     ),
                   ),
-                   Text(
-                    '${lid.user.email}',
+                  Text(
+                    '${user.email}',
                     style: TextStyle(
                       fontFamily: 'Nunito',
                       fontSize: 14,
@@ -210,36 +213,10 @@ class MyHomePage extends StatelessWidget {
                     fontWeight: FontWeight.bold,
                   ),
                 ),
-                onTap: () => showAlertDialog(context, lid),
+                onTap: () => _authService
+                    .signOutFromGoogle(), //showAlertDialog(context),
               ),
-             /* subtitle: Text(
-                'currently Logged In as ${lid.user.displayName}',
-                style: TextStyle(
-                  fontFamily: 'Nunito',
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),*/
             ),
-            /* Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.only(left: 18),
-                  child: InkWell(
-                    child: Text(
-                      'Log Out',
-                      style: TextStyle(
-                        fontFamily: 'Nunito',
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    onTap: () => showAlertDialog(context, lid),
-                  ),
-                ),
-              ],
-            ),*/
           ],
         ),
       ),
@@ -247,13 +224,15 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-showAlertDialog(BuildContext context, LogInDetail lid) {
+/*showAlertDialog(BuildContext context) {
+  final user = Provider.of<FirebaseUser>(context);
+    final AuthService _authService = new AuthService();
   // set up the buttons
   Widget cancelButton = FlatButton(
     child: Text('Yes'),
     onPressed: () {
-      lid.googleSignIn.signOut();
-      Navigator.pushNamed(context, '/LogInPage');
+      _authService.signOutFromGoogle();
+      // Navigator.pushNamed(context, '/LogInPage');
     },
   );
   Widget continueButton = FlatButton(
@@ -280,7 +259,7 @@ showAlertDialog(BuildContext context, LogInDetail lid) {
       return alert;
     },
   );
-}
+}*/
 
 class DataSearch extends SearchDelegate {
   var suggestions = [

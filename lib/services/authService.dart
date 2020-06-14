@@ -32,4 +32,10 @@ class AuthService {
       print(e.toString());
     }
   }
+
+  //----google Sign out---------
+  Future signOutFromGoogle() {
+    _auth.signOut();
+    return null;
+  }
 }
