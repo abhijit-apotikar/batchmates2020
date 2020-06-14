@@ -205,17 +205,18 @@ class MyHomePage extends StatelessWidget {
             ),
             ListTile(
               title: InkWell(
-                child: Text(
-                  'Log Out',
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+                  child: Text(
+                    'Log Out',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                onTap: () => _authService
-                    .signOutFromGoogle(), //showAlertDialog(context),
-              ),
+                  onTap: () async {
+                    await _authService.signOutFromGoogle();
+                  } //showAlertDialog(context),
+                  ),
             ),
           ],
         ),

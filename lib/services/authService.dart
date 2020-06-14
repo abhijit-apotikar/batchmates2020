@@ -34,8 +34,12 @@ class AuthService {
   }
 
   //----google Sign out---------
-  Future signOutFromGoogle() {
-    _auth.signOut();
-    return null;
+  Future signOutFromGoogle() async {
+    try {
+      return await _auth.signOut();
+    } catch (e) {
+      print(e.toString());
+      return null;
+    }
   }
 }
