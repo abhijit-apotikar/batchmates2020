@@ -36,6 +36,30 @@ class ServiceToChartData {
           0,
           data.data['maths']['maths2Int'] + data['maths']['maths2Th']));
     }
+    if (data.data.containsKey('phy')) {
+      marksList.add(MarksDataObj(
+          'phy',
+          data.data['phy']['phyInt'],
+          data.data['phy']['phyTh'],
+          data.data['phy']['phyPract'],
+          data.data['phy']['phyInt'] + data['phy']['phyTh']));
+    }
+    if (data.data.containsKey('elec')) {
+      marksList.add(MarksDataObj(
+          'elec',
+          data.data['elec']['elecInt'],
+          data.data['elec']['elecTh'],
+          data.data['elec']['elecPract'],
+          data.data['elec']['elecInt'] + data['elec']['elecTh']));
+    }
+    if (data.data.containsKey('chem')) {
+      marksList.add(MarksDataObj(
+          'chem',
+          data.data['chem']['chemInt'],
+          data.data['chem']['chemTh'],
+          data.data['chem']['chemPract'],
+          data.data['chem']['chemInt'] + data['chem']['chemTh']));
+    }
     return marksList;
   }
 }
