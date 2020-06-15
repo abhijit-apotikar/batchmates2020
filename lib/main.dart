@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:gradbatch2020/widgets/developerInfo.dart';
+import 'package:gradbatch2020/widgets/register.dart';
 import 'package:gradbatch2020/widgets/studentList.dart';
 import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_core/core.dart';
@@ -15,6 +16,8 @@ import './widgets/MainWrapper.dart';
 import './widgets/developerInfo.dart';
 import './widgets/detailInfo.dart';
 import './widgets/logInPage.dart';
+import './widgets/signIn.dart';
+import './widgets/register.dart';
 
 void main() {
   SyncfusionLicense.registerLicense(
@@ -37,7 +40,6 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'gradBatch2020',
-        //home: MainWrapper(),
         routes: {
           '/': (context) => Scaffold(
                 body: MainWrapper(),
@@ -56,6 +58,12 @@ class MyApp extends StatelessWidget {
               ),
           '/LogInPage': (context) => Scaffold(
                 body: LogInPage(),
+              ),
+          '/SignIn': (context) => Scaffold(
+                body: SignInWidget(),
+              ),
+          '/Register': (context) => Scaffold(
+                body: RegisterWidget(),
               ),
         },
         theme: ThemeData(

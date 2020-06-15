@@ -15,6 +15,7 @@ class _LogInPageState extends State<LogInPage> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
     return Scaffold(
@@ -25,15 +26,17 @@ class _LogInPageState extends State<LogInPage> {
           children: <Widget>[
             OutlineButton(
               splashColor: Colors.grey,
-              onPressed: () {},
+              onPressed: () async {
+                Navigator.pushNamed(context, '/SignIn');
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40)),
               highlightElevation: 0,
               borderSide: BorderSide(color: Colors.grey),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: InkWell(
-                  onTap: () async {},
+                child: Container(
+                  width: size.width * 0.7,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -45,7 +48,7 @@ class _LogInPageState extends State<LogInPage> {
                       Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: Text(
-                          'Sign in with e-mail',
+                          'Log in or Register',
                           style: TextStyle(
                             fontSize: 20,
                             fontFamily: 'Nunito',
@@ -63,23 +66,23 @@ class _LogInPageState extends State<LogInPage> {
             ),
             OutlineButton(
               splashColor: Colors.grey,
-              onPressed: () {},
+              onPressed: () async {
+                dynamic result = await _authService.signInWithGoogle();
+                if (result == null) {
+                  print('Error siging in');
+                } else {
+                  print('Signed In');
+                  print(result);
+                }
+              },
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(40)),
               highlightElevation: 0,
               borderSide: BorderSide(color: Colors.grey),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: InkWell(
-                  onTap: () async {
-                    dynamic result = await _authService.signInWithGoogle();
-                    if (result == null) {
-                      print('Error siging in');
-                    } else {
-                      print('Signed In');
-                      print(result);
-                    }
-                  },
+                child: Container(
+                  width: size.width * 0.7,
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     mainAxisAlignment: MainAxisAlignment.center,
