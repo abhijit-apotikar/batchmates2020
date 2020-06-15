@@ -8,6 +8,7 @@ import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
 import '../class/argumentsForDetailInfo.dart';
 import '../data/mainData.dart';
+import './loadingWidget.dart';
 
 class StudentList extends StatelessWidget {
   final backgroundColor = Colors.white;
@@ -75,7 +76,9 @@ class StudentList extends StatelessWidget {
                     .snapshots(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return Center(child: new CircularProgressIndicator());
+                    return Center(
+                      child: new CircularProgressIndicator(),
+                    );
                   }
                   var batchDocument = snapshot.data;
                   return new Card(
@@ -191,7 +194,7 @@ class StudentList extends StatelessWidget {
                     switch (snapshot.connectionState) {
                       case ConnectionState.waiting:
                         return Center(
-                          child: new CircularProgressIndicator(),
+                          child: new LoadingWidget(),
                         );
                       default:
                         return new ListView.builder(

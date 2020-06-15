@@ -11,7 +11,12 @@ import '../class/argumentsDetail.dart';
 import '../data/mainData.dart';
 import '../services/authService.dart';
 
-class MyHomePage extends StatelessWidget {
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);

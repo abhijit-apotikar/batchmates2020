@@ -7,6 +7,7 @@ import 'package:syncfusion_flutter_charts/charts.dart';
 import '../class/argumentsForDetailInfo.dart';
 import '../class/colorCodeNotifier.dart';
 import '../services/serviceToChartData.dart';
+import './loadingWidget.dart';
 
 final backgroundColor = Colors.white;
 final appBarForeground = Colors.deepOrangeAccent;
@@ -379,7 +380,7 @@ class _DetailInfoState extends State<DetailInfo> {
                       'No record found',
                       style: TextStyle(
                         fontFamily: 'Nunito',
-                        fontSize: 16,
+                        fontSize: 18,
                         color: localColorCode.ccListTileSubTitle,
                       ),
                     ));
@@ -396,9 +397,7 @@ class _DetailInfoState extends State<DetailInfo> {
                     ));
                   switch (snapshot.connectionState) {
                     case ConnectionState.waiting:
-                      return Center(
-                        child: new CircularProgressIndicator(),
-                      );
+                      return new LoadingWidget();
 
                     default:
                       return ListView.builder(

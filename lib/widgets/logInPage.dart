@@ -68,6 +68,7 @@ class _LogInPageState extends State<LogInPage> {
               splashColor: Colors.grey,
               onPressed: () async {
                 dynamic result = await _authService.signInWithGoogle();
+
                 if (result == null) {
                   print('Error siging in');
                 } else {

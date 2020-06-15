@@ -18,6 +18,8 @@ class ColorCode {
   Color ccListTileTitle;
   Color ccListTileSubTitle;
   Color ccListTileBackground;
+  Color loadingBackground;
+  Color loadingForeground;
   Brightness ccBrightness;
 
   ColorCode({
@@ -38,6 +40,8 @@ class ColorCode {
     this.ccListTileTitle,
     this.ccListTileSubTitle,
     this.ccListTileBackground,
+    this.loadingBackground,
+    this.loadingForeground,
     this.ccBrightness,
   });
 }

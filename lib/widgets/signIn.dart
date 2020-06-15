@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../class/colorCodeNotifier.dart';
 
+import '../widgets/loadingWidget.dart';
+
 import '../shared.dart/constants.dart';
 
 class SignInWidget extends StatefulWidget {
@@ -12,6 +14,7 @@ class SignInWidget extends StatefulWidget {
 }
 
 class _SignInWidgetState extends State<SignInWidget> {
+  bool loading = false;
   final _formKey = GlobalKey<FormState>();
 
   ///------------textField e-mail,password local variables--------
@@ -23,150 +26,132 @@ class _SignInWidgetState extends State<SignInWidget> {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
     AuthService _auth = new AuthService();
-    return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
-        title: new Text(
-          'Log in',
-          style: TextStyle(
-            fontFamily: 'Nunito',
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: localColorCode.ccAppBarForegroundColor,
-          ),
-        ),
-        iconTheme: new IconThemeData(
-          color: localColorCode.ccAppBarForegroundColor,
-          size: 20,
-        ),
-        actions: <Widget>[
-          Material(
-            color: Colors.pink,
-            elevation: 4,
-            child: FlatButton.icon(
+    return loading
+        ? LoadingWidget()
+        : Scaffold(
+            appBar: AppBar(
+              leading: IconButton(
+                icon: Icon(Icons.arrow_back_ios),
                 onPressed: () {
-                  Navigator.pushNamed(context, '/Register');
-                },
-                icon: Icon(
-                  Icons.person,
-                  color: Colors.white,
-                ),
-                label: Text(
-                  'Register',
-                  style: TextStyle(
-                    fontFamily: 'Nunito',
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
-                )),
-          )
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(
-          vertical: 40,
-          horizontal: 20,
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            children: <Widget>[
-              TextFormField(
-                decoration: textFormFieldDecoration.copyWith(hintText: 'Email'),
-                validator: (val) => val.isEmpty ? 'Enter an e-mail' : null,
-                onChanged: (val) {
-                  setState(() {
-                    email = val;
-                  });
+                  Navigator.pop(context);
                 },
               ),
-              SizedBox(height: 20),
-              TextFormField(
-                decoration:
-                    textFormFieldDecoration.copyWith(hintText: 'Password'),
-                validator: (val) => val.length < 6
-                    ? 'Password should be atleast 6 characters long'
-                    : null,
-                obscureText: true,
-                onChanged: (val) {
-                  password = val;
-                },
-              ),
-              SizedBox(height: 30),
-              Material(
-                elevation: 5,
-                color: Colors.amber[300],
-                child: FlatButton(
-                  onPressed: () async {
-                    if (_formKey.currentState.validate()) {
-                      dynamic result = await _auth.signInWithEmailAndPassword(
-                          email, password);
-                      Navigator.pop(context);
-                      if (result == null) {
-                        setState(() {
-                          error = 'Please enter a valid e-mail id';
-                        });
-                      }
-                    }
-                  },
-                  child: Text(
-                    'Log in',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Nunito',
-                    ),
-                  ),
+              title: new Text(
+                'Log in',
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: localColorCode.ccAppBarForegroundColor,
                 ),
               ),
-            ],
-          ),
-        ),
-      ),
-    );
-
-    /* Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
+              iconTheme: new IconThemeData(
+                color: localColorCode.ccAppBarForegroundColor,
+                size: 20,
+              ),
+              actions: <Widget>[
+                Material(
+                  color: Colors.pink,
+                  elevation: 4,
+                  child: FlatButton.icon(
+                      onPressed: () {
+                        Navigator.pushNamed(context, '/Register');
+                      },
+                      icon: Icon(
+                        Icons.person,
+                        color: Colors.white,
+                      ),
+                      label: Text(
+                        'Register',
+                        style: TextStyle(
+                          fontFamily: 'Nunito',
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      )),
+                )
+              ],
+            ),
+            body: Container(
+              padding: const EdgeInsets.symmetric(
+                vertical: 40,
+                horizontal: 20,
+              ),
+              child: Form(
+                key: _formKey,
+                child: Column(
                   children: <Widget>[
-                    Text(
-                      'if you don\'t have an account then, ',
+                    TextFormField(
+                      decoration:
+                          textFormFieldDecoration.copyWith(hintText: 'Email'),
+                      validator: (val) =>
+                          val.isEmpty ? 'Enter an e-mail' : null,
+                      onChanged: (val) {
+                        setState(() {
+                          email = val;
+                        });
+                      },
                     ),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'REGISTER',
-                        style: TextStyle(color: Colors.green),
+                    SizedBox(height: 20),
+                    TextFormField(
+                      decoration: textFormFieldDecoration.copyWith(
+                          hintText: 'Password'),
+                      validator: (val) => val.length < 6
+                          ? 'Password should be atleast 6 characters long'
+                          : null,
+                      obscureText: true,
+                      onChanged: (val) {
+                        password = val;
+                      },
+                    ),
+                    SizedBox(height: 30),
+                    Material(
+                      elevation: 5,
+                      color: Colors.amber[300],
+                      child: FlatButton(
+                        onPressed: () async {
+                          if (_formKey.currentState.validate()) {
+                            setState(() {
+                              loading = true;
+                            });
+                            dynamic result = await _auth
+                                .signInWithEmailAndPassword(email, password);
+                            Navigator.pop(context);
+                            if (result == null) {
+                              setState(() {
+                              //  loading = false;
+                                error = 'Email and password don\t match';
+                              });
+                            }
+                          }
+                        },
+                        child: Text(
+                          'Log in',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Nunito',
+                          ),
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      error,
+                      style: TextStyle(
+                        color: Colors.red,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
                   ],
                 ),
               ),
-              /*Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),*/*/
+            ),
+          );
   }
 }
