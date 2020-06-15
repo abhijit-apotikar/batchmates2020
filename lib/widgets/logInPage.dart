@@ -103,24 +103,6 @@ class _LogInPageState extends State<LogInPage> {
                 ),
               ),
             ),
-            /*FlatButton.icon(
-                  onPressed: () async {
-                    dynamic result = await _authService.signInWithGoogle();
-                    if (result == null) {
-                      print('Error siging in');
-                    } else {
-                      print('Signed In');
-                      print(result);
-                    }
-                  },
-                  icon: 
-                  Image(),/*Icon(
-                    Ionicons.logo_google,
-                  )*/,
-                  label: Text(
-                    'Google Sign In',
-                    style: TextStyle(fontSize: 28),
-                  )),*/
           ],
         ),
       ),
