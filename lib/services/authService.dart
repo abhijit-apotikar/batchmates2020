@@ -25,8 +25,6 @@ class AuthService {
     try {
       AuthResult authResult = await _auth.signInWithCredential(credential);
       FirebaseUser user = authResult.user;
-      //LogInDetail lid = new LogInDetail(googleSignIn,user);
-      //Navigator.pushNamed(context, '/');
       return user;
     } catch (e) {
       print(e.toString());

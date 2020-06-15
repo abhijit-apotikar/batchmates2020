@@ -2,26 +2,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-//import 'package:google_sign_in/google_sign_in.dart';
 
 import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
-//import '../class/LogInDetail.dart';
 
 import '../data/mainData.dart';
 import '../services/authService.dart';
-
-//import '../widgets/logInPage.dart';
 
 class MyHomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
-    //RouteSettings settings = ModalRoute.of(context).settings;
-    //LogInDetail lid = settings.arguments;
+
     final user = Provider.of<FirebaseUser>(context);
     final AuthService _authService = new AuthService();
     Size size = MediaQuery.of(context).size;
