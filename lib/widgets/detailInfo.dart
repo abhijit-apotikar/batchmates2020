@@ -488,7 +488,7 @@ class _DetailInfoState extends State<DetailInfo> {
                                     name: 'Internal',
                                     opacity: 1,
                                     width: 0.3,
-                                    color: Colors.greenAccent,
+                                    color: Colors.yellow,
                                     dataSource: chartData,
                                     xValueMapper: (MarksDataObj sales, _) =>
                                         sales.sub,

@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../class/colorCodeNotifier.dart';
 
+import '../shared.dart/constants.dart';
+
 class SignInWidget extends StatefulWidget {
   @override
   _SignInWidgetState createState() => _SignInWidgetState();
@@ -64,14 +66,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                   ),
                 )),
           )
-          /*IconButton(
-            icon: Icon(Icons.person_add),
-            child:
-            iconSize: 28,
-            onPressed: () {
-              Navigator.pushNamed(context, '/Register');
-            },
-          ),*/
         ],
       ),
       body: Container(
@@ -84,6 +78,7 @@ class _SignInWidgetState extends State<SignInWidget> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                decoration: textFormFieldDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val.isEmpty ? 'Enter an e-mail' : null,
                 onChanged: (val) {
                   setState(() {
@@ -91,7 +86,10 @@ class _SignInWidgetState extends State<SignInWidget> {
                   });
                 },
               ),
+              SizedBox(height: 20),
               TextFormField(
+                decoration:
+                    textFormFieldDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val.length < 6
                     ? 'Password should be atleast 6 characters long'
                     : null,
@@ -100,7 +98,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                   password = val;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Material(
                 elevation: 5,
                 color: Colors.amber[300],
@@ -109,6 +107,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     if (_formKey.currentState.validate()) {
                       dynamic result = await _auth.signInWithEmailAndPassword(
                           email, password);
+                      Navigator.pop(context);
                       if (result == null) {
                         setState(() {
                           error = 'Please enter a valid e-mail id';

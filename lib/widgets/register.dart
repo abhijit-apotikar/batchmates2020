@@ -4,6 +4,8 @@ import 'package:provider/provider.dart';
 
 import '../class/colorCodeNotifier.dart';
 
+import '../shared.dart/constants.dart';
+
 class RegisterWidget extends StatefulWidget {
   @override
   _RegisterWidgetState createState() => _RegisterWidgetState();
@@ -21,6 +23,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
     AuthService _auth = new AuthService();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -64,14 +67,6 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 )),
           )
-          /*IconButton(
-            icon: Icon(Icons.person_add),
-            child:
-            iconSize: 28,
-            onPressed: () {
-              Navigator.pushNamed(context, '/Register');
-            },
-          ),*/
         ],
       ),
       body: Container(
@@ -84,6 +79,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
           child: Column(
             children: <Widget>[
               TextFormField(
+                decoration: textFormFieldDecoration.copyWith(hintText: 'Email'),
                 validator: (val) => val.isEmpty ? 'Enter an e-mail' : null,
                 onChanged: (val) {
                   setState(() {
@@ -91,7 +87,10 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   });
                 },
               ),
+              SizedBox(height: 20),
               TextFormField(
+                decoration:
+                    textFormFieldDecoration.copyWith(hintText: 'Password'),
                 validator: (val) => val.length < 6
                     ? 'Password should be atleast 6 characters long'
                     : null,
@@ -100,7 +99,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   password = val;
                 },
               ),
-              SizedBox(height: 20),
+              SizedBox(height: 30),
               Material(
                 elevation: 5,
                 color: Colors.amber[300],
@@ -109,9 +108,11 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     if (_formKey.currentState.validate()) {
                       dynamic result = await _auth.registerWithEmailAndPassword(
                           email, password);
+                      Navigator.pop(context);
+                      Navigator.pop(context);
                       if (result == null) {
                         setState(() {
-                          error = 'Please enter a valid e-mail id';
+                          error = 'Please enter a valid email id';
                         });
                       }
                     }
@@ -127,47 +128,21 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                   ),
                 ),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                error,
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
-
-    /* Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20.0, vertical: 20.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: <Widget>[
-                    Text(
-                      'if you don\'t have an account then, ',
-                    ),
-                    InkWell(
-                      onTap: () {},
-                      child: Text(
-                        'REGISTER',
-                        style: TextStyle(color: Colors.green),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              /*Padding(
-                  padding: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
-                  ),
-                  child: Container(
-                    height: 400,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      border: Border.all(
-                        color: Colors.black,
-                        width: 1,
-                      ),
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                  ),
-                ),*/*/
   }
 }

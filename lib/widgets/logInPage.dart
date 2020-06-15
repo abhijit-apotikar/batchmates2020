@@ -106,6 +106,53 @@ class _LogInPageState extends State<LogInPage> {
                 ),
               ),
             ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'Made with ',
+                  style: TextStyle(
+                      fontSize: 18, color: Colors.green, fontFamily: 'Nunito'),
+                ),
+                Icon(
+                  Icons.favorite,
+                  color: Colors.pink,
+                  size: 24,
+                ),
+                Text(
+                  ' by Abhijit',
+                  style: TextStyle(
+                      fontSize: 18, color: Colors.green, fontFamily: 'Nunito'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'gradbatch2020',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.deepOrangeAccent,
+                      fontFamily: 'Nunito'),
+                ),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  'version 1.0',
+                  style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.deepOrangeAccent,
+                      fontFamily: 'Nunito'),
+                ),
+              ],
+            ),
           ],
         ),
       ),

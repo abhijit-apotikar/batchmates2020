@@ -24,13 +24,13 @@ final ccLight = new ColorCode(
 );
 
 final ccDark = new ColorCode(
-  ccAppBarColor: Colors.black,
+  ccAppBarColor: Colors.pink,
   ccPrimarySwatch: Colors.grey,
   ccPrimaryColor: Colors.white,
   ccAppBarForegroundColor: Colors.green,
-  ccBackgroundColor: Colors.black,
-  ccGridColor1: Colors.black,
-  ccGridColor2: Colors.black,
+  ccBackgroundColor: Colors.grey[850],
+  ccGridColor1: Colors.amberAccent,
+  ccGridColor2: Colors.indigoAccent,
   ccGridBorderColor1: Colors.redAccent,
   ccGridBorderColor2: Colors.redAccent,
   ccGridTitleColor1: Colors.green,
