@@ -52,6 +52,8 @@ flutter:
     - assets/images/abhi_green_dp.jpg
     - assets/images/sbman.png
     - assets/images/woman.png
+    - assets/images/google_logo.png
+    - assets/images/e_mail.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
