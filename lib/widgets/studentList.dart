@@ -7,6 +7,8 @@ import '../class/colorCodeNotifier.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
 import '../class/argumentsForDetailInfo.dart';
+import '../class/databaseHelper.dart';
+import '../services/getStudentsData.dart';
 import '../data/mainData.dart';
 import './loadingWidget.dart';
 
@@ -25,6 +27,18 @@ class StudentList extends StatelessWidget {
 
     RouteSettings settings = ModalRoute.of(context).settings;
     Arguments mainIndex = settings.arguments;
+
+    GetStudentsData gsd = new GetStudentsData();
+    // List<Map<String,dynamic>> studentsList = [];
+    var temp = gsd.getStudentsData();
+    print('temp length is ${temp.length}');
+    //  gsd.getStudentsData().forEach((element) { studentsList.add(element);});
+    //  print('StudentsList');
+    //  print(studentsList.length);
+    // //  for (int i = 0; i < studentsList.length; i++) {
+    // //   //  print('Working');
+    // //     print(studentsList[i]);
+    // //   }
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,

@@ -405,7 +405,7 @@ class _DetailInfoState extends State<DetailInfo> {
                           itemBuilder: (context, index) {
                             DocumentSnapshot data =
                                 snapshot.data.documents[index];
-                            print(data.data.containsKey('stat'));
+
                             var chartData =
                                 new ServiceToChartData().giveMarks(data);
                             return Container(
@@ -503,115 +503,6 @@ class _DetailInfoState extends State<DetailInfo> {
                               ),
                             );
                           });
-                    /*ListView.builder(
-                                    itemCount: snapshot.data.documents.length,
-                                    itemBuilder: (context, index) {
-                                      DocumentSnapshot data =
-                                          snapshot.data.documents[index];
-                                      print(data.data.containsKey('stat'));
-                                      var chartData = new ServiceToChartData()
-                                          .giveMarks(data);
-                                      return Container(
-                                        height: size.height * 0.65,
-                                        width: size.width,
-                                        child: SfCartesianChart(
-                                          enableSideBySideSeriesPlacement: false,
-                                          primaryXAxis: CategoryAxis(
-                                            title: AxisTitle(text: 'Subjects'),
-                                          ),
-                                          primaryYAxis: NumericAxis(
-                                            minimum: 0,
-                                            maximum: 100,
-                                            title: AxisTitle(text: 'marks'),
-                                            interval: 5,
-                                          ),
-                                          legend: Legend(
-                                            isVisible: true,
-                                            position: LegendPosition.bottom,
-                                            overflowMode:
-                                                LegendItemOverflowMode.wrap,
-                                            title: LegendTitle(
-                                                text: dropdownValue,
-                                                textStyle: ChartTextStyle(
-                                                    color: Colors.red,
-                                                    fontSize: 15,
-                                                    fontStyle: FontStyle.italic,
-                                                    fontWeight: FontWeight.w900)),
-                                          ),
-                                          tooltipBehavior: TooltipBehavior(
-                                            enable: true,
-                                            // format: 'series.name',
-                                          ),
-                                          series: <
-                                              ChartSeries<MarksDataObj, String>>[
-                                            ColumnSeries<MarksDataObj, String>(
-                                              name: 'OutOf100/75',
-                                              // opacity: 0.9,
-                                              // width: 0.4,
-                                              color: Colors.amber,
-                                              dataSource: chartData,
-                                              xValueMapper:
-                                                  (MarksDataObj sales, _) =>
-                                                      sales.sub,
-                                              yValueMapper: (MarksDataObj sales,
-                                                      _) =>
-                                                  (sales.tMarks + sales.internal),
-                                              dataLabelSettings:
-                                                  DataLabelSettings(
-                                                isVisible: true,
-                                                //  labelAlignment: ChartDataLabelAlignment.middle,
-                                              ),
-                                            ),
-                                            /*  ColumnSeries<MarksData, String>(
-                                              name: '${examName[sem - 1]}',
-                                              width: 0.7,
-                                              color: Colors.deepOrangeAccent,
-                                              dataSource: chartData,
-                                              xValueMapper: (MarksData sales, _) =>
-                                                  sales.sub,
-                                              yValueMapper: (MarksData sales, _) =>
-                                                  sales.tMarks,
-                                              dataLabelSettings: DataLabelSettings(
-                                                isVisible: true,
-                                              ),
-                                            ),
-                                            ColumnSeries<MarksData, String>(
-                                              name: 'Practical',
-                                              opacity: 0.9,
-                                              width: 0.5,
-                                              color: Colors.cyan,
-                                              dataSource: chartData,
-                                              xValueMapper: (MarksData sales, _) =>
-                                                  sales.sub,
-                                              yValueMapper: (MarksData sales, _) =>
-                                                  sales.pract,
-                                              dataLabelSettings: DataLabelSettings(
-                                                isVisible: true,
-                                                labelAlignment:
-                                                    ChartDataLabelAlignment.top,
-                                              ),
-                                            ),
-                                            ColumnSeries<MarksData, String>(
-                                              name: 'Internal',
-                                              opacity: 1,
-                                              width: 0.3,
-                                              color: Colors.deepPurpleAccent,
-                                              dataSource: chartData,
-                                              xValueMapper: (MarksData sales, _) =>
-                                                  sales.sub,
-                                              yValueMapper: (MarksData sales, _) =>
-                                                  sales.internal,
-                                              dataLabelSettings: DataLabelSettings(
-                                                isVisible: true,
-                                                labelAlignment:
-                                                    ChartDataLabelAlignment.middle,
-                                              ),
-                                            ),*/
-                                          ],
-                                        ),
-                                      );
-                                      // var doc = snapshot.data.documents;
-                                    });*/
                   }
                 },
               ),

@@ -2,13 +2,15 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
-import 'package:sqflite/sqflite.dart';
+
+
 
 
 import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
+
 
 import '../data/mainData.dart';
 import '../services/authService.dart';
@@ -21,6 +23,8 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
+    
+
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
 
