@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:sqflite/sqflite.dart';
+
 
 import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
@@ -125,8 +127,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 children: <Widget>[
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushNamed(context, '/DeveloperInfo',
-                          arguments: user.photoUrl);
+                      Navigator.pushNamed(
+                        context,
+                        '/DeveloperInfo',
+                      );
                     },
                     child: Hero(
                       tag: 'Developer',
@@ -134,16 +138,17 @@ class _MyHomePageState extends State<MyHomePage> {
                         width: 100,
                         height: 100,
                         decoration: new BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 2,
-                            color: localColorCode.ccAppBarForegroundColor,
-                          ),
-                          /* image: new DecorationImage(
-                            fit: BoxFit.fill,
-                            image: new NetworkImage('${user.photoUrl}'),
-                          )*/
-                        ),
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              width: 2,
+                              color: localColorCode.ccAppBarForegroundColor,
+                            ),
+                            image: new DecorationImage(
+                              fit: BoxFit.fill,
+                              image: user.photoUrl == null
+                                  ? AssetImage("assets/images/person.png")
+                                  : NetworkImage('${user.photoUrl}'),
+                            )),
                       ),
                     ),
                   ),
@@ -155,15 +160,19 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  Text(
-                    '${user.displayName}',
-                    style: TextStyle(
-                      fontFamily: 'Nunito',
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: localColorCode.ccAppBarForegroundColor,
-                    ),
-                  ),
+                  user.displayName == null
+                      ? SizedBox(
+                          height: 10.0,
+                        )
+                      : Text(
+                          '${user.displayName}',
+                          style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: 22,
+                            fontWeight: FontWeight.bold,
+                            color: localColorCode.ccAppBarForegroundColor,
+                          ),
+                        ),
                   Text(
                     '${user.email}',
                     style: TextStyle(
