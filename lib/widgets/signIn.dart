@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import '../class/colorCodeNotifier.dart';
 
 import '../widgets/loadingWidget.dart';
+import '../widgets/alertDialog.dart';
 
 import '../shared.dart/constants.dart';
 
@@ -117,11 +118,15 @@ class _SignInWidgetState extends State<SignInWidget> {
                             });
                             dynamic result = await _auth
                                 .signInWithEmailAndPassword(email, password);
-                            Navigator.pop(context);
+
+                            if (result != null) {
+                              Navigator.pop(context);
+                            }
                             if (result == null) {
                               setState(() {
-                              //  loading = false;
-                                error = 'Email and password don\t match';
+                                loading = false;
+                                error = 'Wrong credentials, try again';
+                                showAlertDialog(context, error);
                               });
                             }
                           }
@@ -130,15 +135,20 @@ class _SignInWidgetState extends State<SignInWidget> {
                           'Log in',
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 20,
+                            fontSize: 18,
                             fontWeight: FontWeight.bold,
                             fontFamily: 'Nunito',
                           ),
                         ),
                       ),
                     ),
-                    SizedBox(
+                    /*   SizedBox(
                       height: 20,
+                    ),
+                    Icon(
+                      Icons.mood_bad,
+                      size: 50,
+                      color: Colors.red,
                     ),
                     Text(
                       error,
@@ -147,7 +157,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                       ),
-                    ),
+                    ),*/
                   ],
                 ),
               ),
