@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 
 import 'package:provider/provider.dart';
 
@@ -53,7 +54,6 @@ class SearchResultsWidget extends StatelessWidget {
       ),
       body: Column(
         children: <Widget>[
-          
           Scrollbar(
             child: Container(
               color: localColorCode.ccBackgroundColor,
@@ -96,6 +96,7 @@ class SearchResultsWidget extends StatelessWidget {
                         return Center(
                           child: new LoadingWidget(),
                         );
+
                       default:
                         return new ListView.builder(
                             itemCount: snapshot.data.documents.length,
@@ -142,8 +143,13 @@ class SearchResultsWidget extends StatelessWidget {
                                     ),
                                   ),
                                   trailing: Icon(
-                                    Icons.more_vert,
-                                    color: localColorCode.ccListTileTitle,
+                                    data['gender'] == 'male'
+                                        ? Ionicons.md_male
+                                        : Ionicons.md_female,
+                                    color: data['gender'] == 'male'
+                                        ? localColorCode.ccMale
+                                        : localColorCode.ccFemale,
+                                    size: 24,
                                   ),
                                   onTap: () {
                                     ArgumentsForDetailInfo idx =

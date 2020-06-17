@@ -86,7 +86,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                         controller: lNameCtrl,
                         validator: (val) =>
                             val.isEmpty ? 'Enter last name' : null,
-                        obscureText: true,
                         onChanged: (val) {
                           lName = val;
                         },
@@ -98,7 +97,6 @@ class _SearchWidgetState extends State<SearchWidget> {
                         controller: batchCtrl,
                         validator: (val) =>
                             val.isEmpty ? 'Enter last name' : null,
-                        obscureText: true,
                         onChanged: (val) {
                           batch = val;
                         },

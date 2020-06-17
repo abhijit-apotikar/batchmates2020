@@ -1,16 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 
-
-
-
 import '../class/colorCodeNotifier.dart';
 import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 import '../class/argumentsDetail.dart';
-
 
 import '../data/mainData.dart';
 import '../services/authService.dart';
@@ -23,8 +20,6 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    
-
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
     final localColorCode = localColorCodeNotifier.getColorCode();
 
@@ -61,61 +56,161 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: SafeArea(
-        child: Column(
-          children: <Widget>[
-            Scrollbar(
-              child: Container(
-                width: double.infinity,
-                height: (size.height) * 0.85,
-                padding: const EdgeInsets.symmetric(horizontal: 10),
-                child: GridView.count(
-                    crossAxisCount: 2,
-                    children: List.generate(7, (index) {
-                      return InkWell(
-                        child: Container(
-                          child: Card(
-                            elevation: 3,
-                            color: (index == 0 || index == 3 || index == 4)
-                                ? localColorCode.ccGridColor1
-                                : localColorCode.ccGridColor2,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20),
-                              side: BorderSide(
-                                color: (index == 0 || index == 3 || index == 4)
-                                    ? localColorCode.ccGridBorderColor1
-                                    : localColorCode.ccGridBorderColor2,
-                                width: 2,
-                              ),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'M${index + 1}',
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
+        child: Scrollbar(
+          child: SingleChildScrollView(
+            child: Column(
+              children: <Widget>[
+                Container(
+                  height: (size.height) * 0.25,
+                  margin: const EdgeInsets.all(10.0),
+                  padding: const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 0),
+                  decoration: BoxDecoration(
+                    border: Border.all(),
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(30),
+                    ),
+                    gradient: new LinearGradient(
+                        colors: [
+                          Colors.cyan,
+                          Colors.pink,
+                        ],
+                        begin: const FractionalOffset(0.0, 0.0),
+                        end: const FractionalOffset(1.0, 0.0),
+                        stops: [0.0, 1.0],
+                        tileMode: TileMode.clamp),
+                  ),
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Daily Quote',
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontFamily: 'Pica',
+                                fontWeight: FontWeight.bold,
+                                color: Colors.green,
+                              )),
+                        ],
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.fromLTRB(5, 5, 5, 0),
+                        child: new StreamBuilder(
+                            stream: Firestore.instance
+                                .collection('quotes')
+                                .document('quote')
+                                .snapshots(),
+                            builder: (context, snapshot) {
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: new CircularProgressIndicator(),
+                                );
+                              }
+                              var quote = snapshot.data;
+                              return new Column(
+                                children: <Widget>[
+                                  Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: <Widget>[
+                                        Flexible(
+                                          child: Text('${quote['quote']}',
+                                              style: TextStyle(
+                                                fontFamily: 'Satisfy',
+                                                fontSize: 20,
+                                                color: Colors.white,
+                                              )),
+                                        ),
+                                      ]),
+                                  SizedBox(height: 5),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.end,
+                                    children: <Widget>[
+                                      Text(
+                                        ': ${quote['author']}',
+                                        style: TextStyle(
+                                          fontFamily: 'Satisfy',
+                                          color: Colors.white,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 10),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: <Widget>[
+                                      Text(
+                                        'updated: ${quote['updated']}',
+                                        style: TextStyle(fontSize: 10),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              );
+                            }),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: double.infinity,
+                  height: (size.height) * 0.95,
+                  padding: const EdgeInsets.symmetric(horizontal: 10),
+                  child: GridView.count(
+                      physics: NeverScrollableScrollPhysics(),
+                      crossAxisCount: 2,
+                      children: List.generate(7, (index) {
+                        return InkWell(
+                          child: Container(
+                           
+                            child: Card(
+                              elevation: 3,
+                              color: (index == 0 || index == 3 || index == 4)
+                                  ? localColorCode.ccGridColor1
+                                  : localColorCode.ccGridColor2,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20),
+                                side: BorderSide(
                                   color:
                                       (index == 0 || index == 3 || index == 4)
-                                          ? localColorCode.ccGridTitleColor1
-                                          : localColorCode.ccGridTitleColor2,
+                                          ? localColorCode.ccGridBorderColor1
+                                          : localColorCode.ccGridBorderColor2,
+                                  width: 2,
+                                ),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'M${index + 1}',
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontSize: 28,
+                                    fontWeight: FontWeight.bold,
+                                    color:
+                                        (index == 0 || index == 3 || index == 4)
+                                            ? localColorCode.ccGridTitleColor1
+                                            : localColorCode.ccGridTitleColor2,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                        onTap: () {
-                          Arguments idx = new Arguments(index);
-                          Navigator.pushNamed(
-                            context,
-                            '/StudentList',
-                            arguments: idx,
-                          );
-                        },
-                      );
-                    })),
-              ),
+                          onTap: () {
+                            Arguments idx = new Arguments(index);
+                            Navigator.pushNamed(
+                              context,
+                              '/StudentList',
+                              arguments: idx,
+                            );
+                          },
+                        );
+                      })),
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
       drawer: Drawer(
