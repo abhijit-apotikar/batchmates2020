@@ -48,7 +48,11 @@ class _DetailInfoState extends State<DetailInfo> {
           },
         ),
         title: new Text(
-          '${data['fName']} ${data['lName']}',
+          '${data['fName'][0].toUpperCase()}' +
+              '${data['fName'].substring(1)}' +
+              ' ' +
+              '${data['lName'][0].toUpperCase()}' +
+              '${data['lName'].substring(1)}',
           style: TextStyle(
             fontFamily: 'Nunito',
             fontSize: 24,
@@ -103,7 +107,11 @@ class _DetailInfoState extends State<DetailInfo> {
                             ),
                           ),
                           Text(
-                            '${data['fName']} ${data['lName']}',
+                            '${data['fName'][0].toUpperCase()}' +
+                                '${data['fName'].substring(1)}' +
+                                ' ' +
+                                '${data['lName'][0].toUpperCase()}' +
+                                '${data['lName'].substring(1)}',
                             style: TextStyle(
                               fontFamily: 'Nunito',
                               fontSize: 20,
@@ -448,7 +456,7 @@ class _DetailInfoState extends State<DetailInfo> {
                                     xValueMapper: (MarksDataObj sales, _) =>
                                         sales.sub,
                                     yValueMapper: (MarksDataObj sales, _) =>
-                                        (sales.iPlusT),
+                                        (sales.tMarks + sales.internal),
                                     dataLabelSettings: DataLabelSettings(
                                       isVisible: true,
                                       //  labelAlignment: ChartDataLabelAlignment.middle,

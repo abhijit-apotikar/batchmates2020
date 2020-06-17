@@ -18,6 +18,8 @@ import './widgets/detailInfo.dart';
 import './widgets/logInPage.dart';
 import './widgets/signIn.dart';
 import './widgets/register.dart';
+import './widgets/searchWidget.dart';
+import './widgets/searchResultsWidget.dart';
 
 void main() {
   SyncfusionLicense.registerLicense(
@@ -39,7 +41,7 @@ class MyApp extends StatelessWidget {
       value: AuthService().user,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'gradBatch2020',
+        title: 'GradBatch2020',
         routes: {
           '/': (context) => Scaffold(
                 body: MainWrapper(),
@@ -64,6 +66,12 @@ class MyApp extends StatelessWidget {
               ),
           '/Register': (context) => Scaffold(
                 body: RegisterWidget(),
+              ),
+          '/SearchWidget': (context) => Scaffold(
+                body: SearchWidget(),
+              ),
+          '/SearchResults': (context) => Scaffold(
+                body: SearchResultsWidget(),
               ),
         },
         theme: ThemeData(

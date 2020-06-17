@@ -55,7 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
               size: 28,
             ),
             onPressed: () {
-              showSearch(context: context, delegate: DataSearch());
+              Navigator.pushNamed(context, '/SearchWidget');
             },
           ),
         ],

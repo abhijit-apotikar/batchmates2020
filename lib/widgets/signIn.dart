@@ -142,22 +142,6 @@ class _SignInWidgetState extends State<SignInWidget> {
                         ),
                       ),
                     ),
-                    /*   SizedBox(
-                      height: 20,
-                    ),
-                    Icon(
-                      Icons.mood_bad,
-                      size: 50,
-                      color: Colors.red,
-                    ),
-                    Text(
-                      error,
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),*/
                   ],
                 ),
               ),

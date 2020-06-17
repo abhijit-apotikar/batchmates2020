@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
 import 'package:provider/provider.dart';
-import 'package:flutter_icons/flutter_icons.dart';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import '../class/colorCodeNotifier.dart';
-import '../class/arguments.dart';
+
+import '../class/searchArguments.dart';
 
 import '../class/argumentsForDetailInfo.dart';
 
 import './loadingWidget.dart';
 
-class StudentList extends StatelessWidget {
+class SearchResultsWidget extends StatelessWidget {
   final backgroundColor = Colors.white;
   final appBarForeground = Colors.deepOrangeAccent;
   final appBarBackground = Colors.white;
@@ -25,7 +26,7 @@ class StudentList extends StatelessWidget {
     final size = MediaQuery.of(context).size;
 
     RouteSettings settings = ModalRoute.of(context).settings;
-    Arguments mainIndex = settings.arguments;
+    SearchArguments sa = settings.arguments;
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -41,7 +42,7 @@ class StudentList extends StatelessWidget {
           size: 28,
         ),
         title: new Text(
-          'M${mainIndex.aridx + 1}',
+          'Search Results',
           style: TextStyle(
             fontFamily: 'Nunito',
             fontSize: 24,
@@ -49,137 +50,36 @@ class StudentList extends StatelessWidget {
             color: localColorCode.ccAppBarForegroundColor,
           ),
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.search),
-            iconSize: 28,
-            onPressed: () {
-              Navigator.pushNamed(context, '/SearchWidget');
-            },
-          ),
-        ],
       ),
       body: Column(
         children: <Widget>[
-          Container(
-            height: (size.height) * 0.13,
-            width: double.infinity,
-            color: localColorCode.ccBackgroundColor,
-            padding: const EdgeInsets.only(
-              left: 5,
-              right: 5,
-            ),
-            child: new StreamBuilder(
-                stream: Firestore.instance
-                    .collection('batches')
-                    .document('m${mainIndex.aridx + 1}')
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: new CircularProgressIndicator(),
-                    );
-                  }
-                  var batchDocument = snapshot.data;
-                  return new Card(
-                    color: localColorCode.ccBackgroundColor,
-                    elevation: 0,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      side: BorderSide(
-                        color: Colors.redAccent,
-                        width: 1.5,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 5, right: 5),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: <Widget>[
-                                Text(
-                                  'Batch Strength : ${batchDocument['strength']} ',
-                                  style: TextStyle(
-                                    fontFamily: 'Nunito',
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: localColorCode
-                                        .ccBatchDetailsForegroundColor,
-                                  ),
-                                ),
-                                Container(
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.end,
-                                    children: <Widget>[
-                                      Icon(
-                                        Ionicons.md_female,
-                                        size: 18,
-                                        color: localColorCode.ccFemale,
-                                      ),
-                                      Text(
-                                        '${batchDocument['girls']} ',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Nunito',
-                                          fontWeight: FontWeight.bold,
-                                          color: localColorCode.ccFemale,
-                                        ),
-                                      ),
-                                      Icon(
-                                        Ionicons.md_male,
-                                        size: 18,
-                                        color: localColorCode.ccMale,
-                                      ),
-                                      Text(
-                                        '${batchDocument['boys']}',
-                                        style: TextStyle(
-                                          fontSize: 18,
-                                          fontFamily: 'Nunito',
-                                          fontWeight: FontWeight.bold,
-                                          color: localColorCode.ccMale,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Text(
-                              'Subject Combination : ${batchDocument['subComb']}',
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                                color: localColorCode
-                                    .ccBatchDetailsForegroundColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  );
-                }),
-          ),
+          
           Scrollbar(
             child: Container(
               color: localColorCode.ccBackgroundColor,
               width: double.infinity,
-              height: (size.height) * 0.74,
+              height: (size.height) * 0.87,
               padding: const EdgeInsets.only(left: 5, right: 5),
               child: StreamBuilder<QuerySnapshot>(
                   stream: Firestore.instance
                       .collection('students')
-                      .where('batch', isEqualTo: 'm${mainIndex.aridx + 1}')
+                      .where('batch', isEqualTo: '${sa.batch}'.toLowerCase())
+                      .where('fName', isEqualTo: '${sa.fName}'.toLowerCase())
+                      .where('lName', isEqualTo: '${sa.lName}'.toLowerCase())
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
+                    if (!snapshot.hasData)
+                      return Center(
+                        child: Text(
+                          'No record found',
+                          style: TextStyle(
+                              color: localColorCode.ccAppBarForegroundColor,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 20,
+                              fontFamily: 'Nunito'),
+                        ),
+                      );
                     if (snapshot.hasError)
                       return Center(
                           child: new Text(
