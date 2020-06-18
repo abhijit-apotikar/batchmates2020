@@ -64,7 +64,7 @@ class StudentList extends StatelessWidget {
           Container(
             height: (size.height) * 0.13,
             width: double.infinity,
-            color: localColorCode.ccBackgroundColor,
+            //color: localColorCode.ccBackgroundColor,
             padding: const EdgeInsets.only(
               left: 5,
               right: 5,

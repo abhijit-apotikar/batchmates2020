@@ -20,6 +20,11 @@ class ColorCode {
   Color ccListTileBackground;
   Color loadingBackground;
   Color loadingForeground;
+  Color backgroundGradient1;
+  Color backgroundGradient2;
+  Color mainBackgroundGradient1;
+  Color mainBackgroundGradient2;
+  Color mainBackgroundGradient3;
   Brightness ccBrightness;
 
   ColorCode({
@@ -42,6 +47,11 @@ class ColorCode {
     this.ccListTileBackground,
     this.loadingBackground,
     this.loadingForeground,
+    this.backgroundGradient1,
+    this.backgroundGradient2,
+    this.mainBackgroundGradient1,
+    this.mainBackgroundGradient2,
+    this.mainBackgroundGradient3,
     this.ccBrightness,
   });
 }

@@ -22,6 +22,11 @@ final ccLight = new ColorCode(
   ccListTileBackground: Colors.white,
   loadingBackground: Colors.white,
   loadingForeground: Colors.yellow,
+  backgroundGradient1: Colors.blue,
+  backgroundGradient2: Colors.yellow,
+  mainBackgroundGradient1:Colors.deepOrangeAccent,
+  mainBackgroundGradient2: Colors.white,
+  mainBackgroundGradient3: Colors.green,
   ccBrightness: Brightness.light,
 );
 
@@ -45,5 +50,10 @@ final ccDark = new ColorCode(
   ccListTileBackground: Colors.black,
   loadingBackground: Colors.grey[850],
   loadingForeground: Colors.green,
+  backgroundGradient1: Colors.green,
+  backgroundGradient2: Colors.blue,
+  mainBackgroundGradient1:Colors.grey[850],
+  mainBackgroundGradient2: Colors.grey[850],
+  mainBackgroundGradient3: Colors.grey[850],
   ccBrightness: Brightness.dark,
 );

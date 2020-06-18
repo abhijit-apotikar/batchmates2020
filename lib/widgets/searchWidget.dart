@@ -59,6 +59,19 @@ class _SearchWidgetState extends State<SearchWidget> {
             ),
             body: SingleChildScrollView(
               child: Container(
+                decoration: BoxDecoration(
+                  gradient: new LinearGradient(
+                      colors: [
+                        localColorCode.backgroundGradient1,
+                        localColorCode.backgroundGradient2,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      // begin: const FractionalOffset(0.0, 0.0),
+                      // end: const FractionalOffset(1.0, 0.0),
+                      stops: [0.0, 1.0],
+                      tileMode: TileMode.clamp),
+                ),
                 padding: const EdgeInsets.symmetric(
                   vertical: 40,
                   horizontal: 20,
@@ -68,6 +81,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                   child: Column(
                     children: <Widget>[
                       TextFormField(
+                       
                         decoration: textFormFieldDecoration.copyWith(
                             hintText: 'first name'),
                         controller: fNameCtrl,
