@@ -319,6 +319,36 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ]),
             ),
+            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
+            ListTile(
+              enabled:
+                  user.email == 'abhijit.apotikar156@gmail.com' ? true : false,
+              title: InkWell(
+                  child: Text(
+                    'Edit Records',
+                    style: TextStyle(
+                      fontFamily: 'Nunito',
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onTap: () {
+                    Navigator.pushNamed(context, '/EditRecord');
+                  }),
+              subtitle: Text(
+                user.email == 'abhijit.apotikar156@gmail.com'
+                    ? 'Congrats You have required Admin Priviledges to edit records'
+                    : 'Sorry, edit option disabled as you lack Admin Priviledges',
+                style: TextStyle(
+                  fontFamily: 'Nunito',
+                  color: user.email == 'abhijit.apotikar156@gmail.com'
+                      ? Colors.green
+                      : Colors.red,
+                  fontSize: 14,
+                ),
+              ),
+            ),
+             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -333,6 +363,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     await _authService.signOutFromGoogle();
                   }),
             ),
+             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -347,6 +378,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     showOwnAboutDialog(context, size);
                   }),
             ),
+            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
           ],
         ),
       ),

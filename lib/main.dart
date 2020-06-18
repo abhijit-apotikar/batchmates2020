@@ -20,6 +20,7 @@ import './widgets/signIn.dart';
 import './widgets/register.dart';
 import './widgets/searchWidget.dart';
 import './widgets/searchResultsWidget.dart';
+import './widgets/editRecordWidget.dart';
 
 void main() {
   SyncfusionLicense.registerLicense(
@@ -72,6 +73,9 @@ class MyApp extends StatelessWidget {
               ),
           '/SearchResults': (context) => Scaffold(
                 body: SearchResultsWidget(),
+              ),
+          '/EditRecord': (context) => Scaffold(
+                body: EditRecordWidget(),
               ),
         },
         theme: ThemeData(
