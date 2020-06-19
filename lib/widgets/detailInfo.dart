@@ -9,6 +9,8 @@ import '../class/colorCodeNotifier.dart';
 import '../services/serviceToChartData.dart';
 import './loadingWidget.dart';
 
+import '../services/firestoreDatabaseService.dart';
+
 final backgroundColor = Colors.white;
 final appBarForeground = Colors.deepOrangeAccent;
 final appBarBackground = Colors.white;
@@ -31,6 +33,8 @@ class _DetailInfoState extends State<DetailInfo> {
     final Size size = MediaQuery.of(context).size;
 
     final data = nameInfo.data;
+    // FirestoreDatabaseService fds = new FirestoreDatabaseService();
+    // fds.checkStudent(data['fName'], data['lName']) ;
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,

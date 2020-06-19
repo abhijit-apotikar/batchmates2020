@@ -6,12 +6,12 @@ import '../services/firestoreDatabaseService.dart';
 import '../widgets/successAlertDialog.dart';
 import '../widgets/failureAlertDialog.dart';
 
-class InsertStudent extends StatefulWidget {
+class SingleResult extends StatefulWidget {
   @override
-  _InsertStudentState createState() => _InsertStudentState();
+  _SingleResultState createState() => _SingleResultState();
 }
 
-class _InsertStudentState extends State<InsertStudent> {
+class _SingleResultState extends State<SingleResult> {
   final _formKey2 = GlobalKey<FormState>();
 
   final _fNameCtrl = new TextEditingController();
@@ -24,27 +24,28 @@ class _InsertStudentState extends State<InsertStudent> {
   String fName = '';
   String lName = '';
   String batchDropdownValue = 'M1';
-  String gender = '';
-  String _resultGender = '';
+  String examDropdownValue = 'bscSem1W2017';
+  // String gender = '';
+  // String _resultGender = '';
 
-  void _handleRadioValueChange(int value) {
-    setState(() {
-      _groupValue = value;
+  // void _handleRadioValueChange(int value) {
+  //   setState(() {
+  //     _groupValue = value;
 
-      switch (_groupValue) {
-        case 0:
-          _resultGender = 'male';
-          break;
-        case 1:
-          _resultGender = 'female';
-          break;
-      }
-    });
-  }
+  //     switch (_groupValue) {
+  //       case 0:
+  //         _resultGender = 'male';
+  //         break;
+  //       case 1:
+  //         _resultGender = 'female';
+  //         break;
+  //     }
+  //   });
+  // }
 
   // final String _genderValue1 = 'male';
   // final String _genderValue2 = 'female';
-  int _groupValue = -1;
+  // int _groupValue = -1;
 
   @override
   Widget build(BuildContext context) {
@@ -80,6 +81,48 @@ class _InsertStudentState extends State<InsertStudent> {
               },
             ),
             SizedBox(height: 20),
+            Row(
+              children: <Widget>[
+                Text('Exam: '),
+                DropdownButton<String>(
+                  value: examDropdownValue,
+                  icon: Icon(Icons.arrow_downward),
+                  iconSize: 24,
+                  elevation: 16,
+                  style: TextStyle(
+                    fontFamily: 'Nunito',
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  underline: Container(
+                    height: 2,
+                    color: Colors.deepPurpleAccent,
+                  ),
+                  onChanged: (String newValue) {
+                    setState(() {
+                      examDropdownValue = newValue;
+                    });
+                  },
+                  items: <String>[
+                    'bscSem1W2017',
+                    'bscSem2S2018',
+                    'bscSem3W2018',
+                    'bscSem4S2019',
+                    'bscSem5W2019',
+                    
+                  ].map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
             Row(
               children: <Widget>[
                 Text('Batch: '),
@@ -120,10 +163,7 @@ class _InsertStudentState extends State<InsertStudent> {
                 ),
               ],
             ),
-            SizedBox(
-              height: 20,
-            ),
-            Row(
+           /* Row(
               children: <Widget>[
                 Text('Gender: '),
                 Radio(
@@ -145,33 +185,32 @@ class _InsertStudentState extends State<InsertStudent> {
             ),
             SizedBox(
               height: 20,
-            ),
+            ),*/
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('Insert Student'),
+                  child: Text('Insert Single Result'),
                   onPressed: () async {
                     if (_formKey2.currentState.validate()) {
-                      dynamic result = await fds.addStudent(fName, lName,
-                          batchDropdownValue.toLowerCase(), _resultGender);
+                      dynamic result = await fds.addResult(fName, lName,batchDropdownValue.toLowerCase(),
+                          examDropdownValue,);
                       if (result) {
                         setState(() {
-                          error = 'Student added Successfully';
+                          error = 'Result added Successfully';
                           showSuccessAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
-                          batchDropdownValue = 'M1';
-                          _groupValue = -1;
+                          examDropdownValue = 'bscSem1W2017';
+                          
                         });
                       } else {
                         setState(() {
-                          error = 'Sorry, Student already exists';
+                          error = 'Sorry, Result already exists';
                           showFailureAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
-                          batchDropdownValue = 'M1';
-                          _groupValue = -1;
+                          examDropdownValue = 'bscSem1W2017';
                         });
                       }
                     }

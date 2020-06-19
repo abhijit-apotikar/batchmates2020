@@ -5,6 +5,9 @@ import 'package:provider/provider.dart';
 
 import '../class/colorCodeNotifier.dart';
 import '../widgets/insertStudent.dart';
+import '../widgets/singleResult.dart';
+import '../widgets/deleteStudent.dart';
+import '../widgets/deleteResult.dart';
 
 import '../services/authService.dart';
 
@@ -26,6 +29,10 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
   bool isInsertingSpecial = false;
 
   String deleteDropdownValue = 'Student';
+  bool isDeletingStudent = true;
+  bool isDeletingSingle = false;
+  bool isDeletingBulk = false;
+  bool isDeletingSpecial = false;
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
@@ -168,7 +175,7 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                   isInsertingStudent
                       ? InsertStudent()
                       : (isInsertingSingle
-                          ? Container()
+                          ? SingleResult()
                           : (isInsertingBulk ? Container() : Container())),
                 ],
               ),
@@ -214,51 +221,75 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
                     ),
                   ],
                 )
-              : Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text('Delete: '),
-                        DropdownButton<String>(
-                          value: insertDropdownValue,
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurpleAccent,
+              : SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text('Delete: '),
+                          DropdownButton<String>(
+                            value: insertDropdownValue,
+                            icon: Icon(Icons.arrow_downward),
+                            iconSize: 24,
+                            elevation: 16,
+                            style: TextStyle(
+                              fontFamily: 'Nunito',
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            underline: Container(
+                              height: 2,
+                              color: Colors.deepPurpleAccent,
+                            ),
+                            onChanged: (String newValue) {
+                              setState(() {
+                                deleteDropdownValue = newValue;
+                                if (newValue == 'Student') {
+                                  isDeletingSingle = false;
+                                  isDeletingBulk = false;
+                                  isDeletingSpecial = false;
+                                  isDeletingStudent = true;
+                                } else if (newValue == 'Single') {
+                                  isDeletingStudent = false;
+                                  isDeletingBulk = false;
+                                  isDeletingSpecial = false;
+                                  isDeletingSingle = true;
+                                } else if (newValue == 'Bulk') {
+                                  isDeletingStudent = false;
+                                  isDeletingSingle = false;
+                                  isDeletingSpecial = false;
+                                  isDeletingBulk = true;
+                                } else if (newValue == 'Special') {
+                                  isDeletingStudent = false;
+                                  isDeletingSingle = false;
+                                  isDeletingBulk = false;
+                                  isDeletingSpecial = true;
+                                }
+                              });
+                            },
+                            items: <String>[
+                              'Student',
+                              'Single',
+                              'Bulk',
+                              'Special',
+                            ].map<DropdownMenuItem<String>>((String value) {
+                              return DropdownMenuItem<String>(
+                                value: value,
+                                child: Text(value),
+                              );
+                            }).toList(),
                           ),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              insertDropdownValue = newValue;
-                              if (newValue == 'Student') {
-                              } else if (newValue == 'Single') {
-                              } else if (newValue == 'Bulk') {
-                              } else if (newValue == 'Special') {}
-                            });
-                          },
-                          items: <String>[
-                            'Student',
-                            'Single',
-                            'Bulk',
-                            'Special',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
-                        ),
-                      ],
-                    ),
-                  ],
+                        ],
+                      ),
+                      isDeletingStudent
+                          ? DeleteStudent()
+                          : (isDeletingSingle
+                              ? DeleteResult()
+                              : (isDeletingBulk ? Container() : Container())),
+                    ],
+                  ),
                 )),
     );
   }

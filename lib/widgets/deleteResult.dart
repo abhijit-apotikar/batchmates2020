@@ -6,13 +6,13 @@ import '../services/firestoreDatabaseService.dart';
 import '../widgets/successAlertDialog.dart';
 import '../widgets/failureAlertDialog.dart';
 
-class InsertStudent extends StatefulWidget {
+class DeleteResult extends StatefulWidget {
   @override
-  _InsertStudentState createState() => _InsertStudentState();
+  _DeleteResult createState() => _DeleteResult();
 }
 
-class _InsertStudentState extends State<InsertStudent> {
-  final _formKey2 = GlobalKey<FormState>();
+class _DeleteResult extends State<DeleteResult> {
+  final _formKey4 = GlobalKey<FormState>();
 
   final _fNameCtrl = new TextEditingController();
   final _lNameCtrl = new TextEditingController();
@@ -23,35 +23,17 @@ class _InsertStudentState extends State<InsertStudent> {
 
   String fName = '';
   String lName = '';
-  String batchDropdownValue = 'M1';
-  String gender = '';
-  String _resultGender = '';
-
-  void _handleRadioValueChange(int value) {
-    setState(() {
-      _groupValue = value;
-
-      switch (_groupValue) {
-        case 0:
-          _resultGender = 'male';
-          break;
-        case 1:
-          _resultGender = 'female';
-          break;
-      }
-    });
-  }
+  String batchDropdownValue = 'bscSem1W2017';
 
   // final String _genderValue1 = 'male';
   // final String _genderValue2 = 'female';
-  int _groupValue = -1;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Form(
-        key: _formKey2,
+        key: _formKey4,
         child: Column(
           children: <Widget>[
             TextFormField(
@@ -82,7 +64,7 @@ class _InsertStudentState extends State<InsertStudent> {
             SizedBox(height: 20),
             Row(
               children: <Widget>[
-                Text('Batch: '),
+                Text('Exam: '),
                 DropdownButton<String>(
                   value: batchDropdownValue,
                   icon: Icon(Icons.arrow_downward),
@@ -104,13 +86,11 @@ class _InsertStudentState extends State<InsertStudent> {
                     });
                   },
                   items: <String>[
-                    'M1',
-                    'M2',
-                    'M3',
-                    'M4',
-                    'M5',
-                    'M6',
-                    'M7',
+                    'bscSem1W2017',
+                    'bscSem2S2018',
+                    'bscSem3W2018',
+                    'bscSem4S2019',
+                    'bscSem5W2019',
                   ].map<DropdownMenuItem<String>>((String value) {
                     return DropdownMenuItem<String>(
                       value: value,
@@ -123,7 +103,7 @@ class _InsertStudentState extends State<InsertStudent> {
             SizedBox(
               height: 20,
             ),
-            Row(
+            /* Row(
               children: <Widget>[
                 Text('Gender: '),
                 Radio(
@@ -145,33 +125,31 @@ class _InsertStudentState extends State<InsertStudent> {
             ),
             SizedBox(
               height: 20,
-            ),
+            ),-*/
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('Insert Student'),
+                  child: Text('Delete Result'),
                   onPressed: () async {
-                    if (_formKey2.currentState.validate()) {
-                      dynamic result = await fds.addStudent(fName, lName,
-                          batchDropdownValue.toLowerCase(), _resultGender);
+                    if (_formKey4.currentState.validate()) {
+                      dynamic result = await fds.deleteResult(
+                          fName, lName, batchDropdownValue);
                       if (result) {
                         setState(() {
-                          error = 'Student added Successfully';
+                          error = 'Student result deleted Successfully';
                           showSuccessAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
-                          batchDropdownValue = 'M1';
-                          _groupValue = -1;
+                          batchDropdownValue = 'bscSem1W2017';
                         });
                       } else {
                         setState(() {
-                          error = 'Sorry, Student already exists';
+                          error = 'Sorry, specified result do not exist';
                           showFailureAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
-                          batchDropdownValue = 'M1';
-                          _groupValue = -1;
+                          batchDropdownValue = 'bscSem1W2017';
                         });
                       }
                     }

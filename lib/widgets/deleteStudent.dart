@@ -6,13 +6,13 @@ import '../services/firestoreDatabaseService.dart';
 import '../widgets/successAlertDialog.dart';
 import '../widgets/failureAlertDialog.dart';
 
-class InsertStudent extends StatefulWidget {
+class DeleteStudent extends StatefulWidget {
   @override
-  _InsertStudentState createState() => _InsertStudentState();
+  _DeleteStudentState createState() => _DeleteStudentState();
 }
 
-class _InsertStudentState extends State<InsertStudent> {
-  final _formKey2 = GlobalKey<FormState>();
+class _DeleteStudentState extends State<DeleteStudent> {
+  final _formKey3 = GlobalKey<FormState>();
 
   final _fNameCtrl = new TextEditingController();
   final _lNameCtrl = new TextEditingController();
@@ -51,7 +51,7 @@ class _InsertStudentState extends State<InsertStudent> {
     return Container(
       padding: const EdgeInsets.all(10),
       child: Form(
-        key: _formKey2,
+        key: _formKey3,
         child: Column(
           children: <Widget>[
             TextFormField(
@@ -150,14 +150,14 @@ class _InsertStudentState extends State<InsertStudent> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RaisedButton(
-                  child: Text('Insert Student'),
+                  child: Text('Delete Student'),
                   onPressed: () async {
-                    if (_formKey2.currentState.validate()) {
-                      dynamic result = await fds.addStudent(fName, lName,
+                    if (_formKey3.currentState.validate()) {
+                      dynamic result = await fds.deleteStudent(fName, lName,
                           batchDropdownValue.toLowerCase(), _resultGender);
                       if (result) {
                         setState(() {
-                          error = 'Student added Successfully';
+                          error = 'Student deleted Successfully';
                           showSuccessAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
@@ -166,7 +166,7 @@ class _InsertStudentState extends State<InsertStudent> {
                         });
                       } else {
                         setState(() {
-                          error = 'Sorry, Student already exists';
+                          error = 'sorry, specified student do not exist';
                           showFailureAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
