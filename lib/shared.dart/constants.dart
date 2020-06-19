@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const textFormFieldDecoration = InputDecoration(
-  fillColor: Colors.amberAccent,
-  filled: true,
+  //fillColor: Theme.of(context=)
+ // filled: true,
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.blue,

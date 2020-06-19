@@ -8,6 +8,7 @@ import '../widgets/insertStudent.dart';
 import '../widgets/singleResult.dart';
 import '../widgets/deleteStudent.dart';
 import '../widgets/deleteResult.dart';
+import '../widgets/updateStudent.dart';
 
 import '../services/authService.dart';
 
@@ -33,6 +34,12 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
   bool isDeletingSingle = false;
   bool isDeletingBulk = false;
   bool isDeletingSpecial = false;
+
+  String updateDropdownValue = 'Student';
+  bool isUpdatingStudent = true;
+  bool isUpdatingSingle = false;
+  bool isUpdatingQuote = false;
+
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<FirebaseUser>(context);
@@ -181,45 +188,66 @@ class _EditRecordWidgetState extends State<EditRecordWidget> {
               ),
             )
           : (isUpdating
-              ? Column(
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+              ? Scrollbar(
+                  child: SingleChildScrollView(
+                    child: Column(
                       children: <Widget>[
-                        Text('Update: '),
-                        DropdownButton<String>(
-                          value: insertDropdownValue,
-                          icon: Icon(Icons.arrow_downward),
-                          iconSize: 24,
-                          elevation: 16,
-                          style: TextStyle(
-                            fontFamily: 'Nunito',
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          underline: Container(
-                            height: 2,
-                            color: Colors.deepPurpleAccent,
-                          ),
-                          onChanged: (String newValue) {
-                            setState(() {
-                              insertDropdownValue = newValue;
-                              if (newValue == 'Student') {}
-                            });
-                          },
-                          items: <String>[
-                            'Student',
-                          ].map<DropdownMenuItem<String>>((String value) {
-                            return DropdownMenuItem<String>(
-                              value: value,
-                              child: Text(value),
-                            );
-                          }).toList(),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Text('Update: '),
+                            DropdownButton<String>(
+                              value: updateDropdownValue,
+                              icon: Icon(Icons.arrow_downward),
+                              iconSize: 24,
+                              elevation: 16,
+                              style: TextStyle(
+                                fontFamily: 'Nunito',
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              underline: Container(
+                                height: 2,
+                                color: Colors.deepPurpleAccent,
+                              ),
+                              onChanged: (String newValue) {
+                                setState(() {
+                                  updateDropdownValue = newValue;
+                                  if (newValue == 'Student') {
+                                    isUpdatingSingle = false;
+                                    isUpdatingQuote = false;
+                                    isUpdatingStudent = true;
+                                  } else if (newValue == 'Result') {
+                                    isUpdatingStudent = false;
+                                    isUpdatingQuote = false;
+                                    isUpdatingSingle = true;
+                                  } else if (newValue == 'Quote') {
+                                    isUpdatingStudent = false;
+                                    isUpdatingSingle = false;
+                                    isUpdatingQuote = true;
+                                  }
+                                });
+                              },
+                              items: <String>[
+                                'Student',
+                                'Result',
+                                'Quote',
+                              ].map<DropdownMenuItem<String>>((String value) {
+                                return DropdownMenuItem<String>(
+                                  value: value,
+                                  child: Text(value),
+                                );
+                              }).toList(),
+                            ),
+                          ],
                         ),
+                        isUpdatingStudent
+                            ? UpdateStudent()
+                            : (isUpdatingSingle ? Container() : Container())
                       ],
                     ),
-                  ],
+                  ),
                 )
               : SingleChildScrollView(
                   child: Column(

@@ -328,4 +328,40 @@ class FirestoreDatabaseService {
       return false;
     }
   }
+
+  //get Student record----------------
+  Future getStudentRecord(String fName, String lName) async {
+    QuerySnapshot qs = await Firestore.instance
+        .collection('students')
+        .where(
+          'fName',
+          isEqualTo: fName,
+        )
+        .where('lName', isEqualTo: lName)
+        .getDocuments();
+    if (qs.documents.isNotEmpty) {
+      return qs.documents[0];
+    } else {
+      return null;
+    }
+  }
+
+  //update student record-----------
+  Future<bool> updateStudentRecord(
+      String documentID, fName, lName, batch, gender) async {
+    try {
+      Firestore.instance
+          .collection('students')
+          .document(documentID)
+          .updateData({
+        'fName': fName,
+        'lName': lName,
+        'batch': batch,
+        'gender': gender,
+      });
+      return true;
+    } catch (e) {
+      return null;
+    }
+  }
 }
