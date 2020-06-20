@@ -350,10 +350,10 @@ class FirestoreDatabaseService {
   Future<bool> updateStudentRecord(
       String documentID, fName, lName, batch, gender) async {
     try {
-      Firestore.instance
+     DocumentReference dr = Firestore.instance
           .collection('students')
-          .document(documentID)
-          .updateData({
+          .document(documentID);
+        await dr.updateData({
         'fName': fName,
         'lName': lName,
         'batch': batch,
@@ -361,7 +361,7 @@ class FirestoreDatabaseService {
       });
       return true;
     } catch (e) {
-      return null;
+      return false;
     }
   }
 }
