@@ -148,21 +148,22 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'comp': {
-              'compInt': null,
-              'compTh': null,
-              'compPract': null,
+              'compInt': -1,
+              'compTh': -1,
+              'compPract': -1,
             },
             'maths': {
-              'mahts1Int': null,
-              'maths1Th': null,
-              'maths2Int': null,
-              'maths2Th': null,
+              'mahts1Int': -1,
+              'maths1Th': -1,
+              'maths2Int': -1,
+              'maths2Th': -1,
             },
             'stat': {
-              'statInt': null,
-              'statTh': null,
-              'statPract': null,
-            }
+              'statInt': -1,
+              'statTh': -1,
+              'statPract': -1,
+            },
+            'subComb': 'smcs',
           });
           break;
 
@@ -171,21 +172,22 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'comp': {
-              'compInt': null,
-              'compTh': null,
-              'compPract': null,
+              'compInt': -1,
+              'compTh': -1,
+              'compPract': -1,
             },
             'maths': {
-              'mahts1Int': null,
-              'maths1Th': null,
-              'maths2Int': null,
-              'maths2Th': null,
+              'mahts1Int': -1,
+              'maths1Th': -1,
+              'maths2Int': -1,
+              'maths2Th': -1,
             },
             'phy': {
-              'phyInt': null,
-              'phyTh': null,
-              'phyPract': null,
-            }
+              'phyInt': -1,
+              'phyTh': -1,
+              'phyPract': -1,
+            },
+            'subComb': 'pmcs',
           });
           break;
 
@@ -194,20 +196,21 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'phy': {
-              'phyInt': null,
-              'phyTh': null,
-              'phyPract': null,
+              'phyInt': -1,
+              'phyTh': -1,
+              'phyPract': -1,
             },
             'elec': {
-              'elecInt': null,
-              'elecTh': null,
-              'elecPract': null,
+              'elecInt': -1,
+              'elecTh': -1,
+              'elecPract': -1,
             },
             'comp': {
-              'compInt': null,
-              'compTh': null,
-              'compPract': null,
+              'compInt': -1,
+              'compTh': -1,
+              'compPract': -1,
             },
+            'subComb': 'pecs',
           });
           break;
 
@@ -216,20 +219,21 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'stat': {
-              'statInt': null,
-              'statTh': null,
-              'statPract': null,
+              'statInt': -1,
+              'statTh': -1,
+              'statPract': -1,
             },
             'elec': {
-              'elecInt': null,
-              'elecTh': null,
-              'elecPract': null,
+              'elecInt': -1,
+              'elecTh': -1,
+              'elecPract': -1,
             },
             'comp': {
-              'compInt': null,
-              'compTh': null,
-              'compPract': null,
+              'compInt': -1,
+              'compTh': -1,
+              'compPract': -1,
             },
+            'subComb': 'secs',
           });
           break;
 
@@ -238,20 +242,21 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'phy': {
-              'phyInt': null,
-              'phyTh': null,
-              'phyPract': null,
+              'phyInt': -1,
+              'phyTh': -1,
+              'phyPract': -1,
             },
             'chem': {
-              'chemInt': null,
-              'chemTh': null,
-              'chemPract': null,
+              'chemInt': -1,
+              'chemTh': -1,
+              'chemPract': -1,
             },
             'comp': {
-              'compInt': null,
-              'compTh': null,
-              'compPract': null,
+              'compInt': -1,
+              'compTh': -1,
+              'compPract': -1,
             },
+            'subComb': 'pccs',
           });
           break;
 
@@ -260,21 +265,22 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'phy': {
-              'phyInt': null,
-              'phyTh': null,
-              'phyPract': null,
+              'phyInt': -1,
+              'phyTh': -1,
+              'phyPract': -1,
             },
             'maths': {
-              'mahts1Int': null,
-              'maths1Th': null,
-              'maths2Int': null,
-              'maths2Th': null,
+              'mahts1Int': -1,
+              'maths1Th': -1,
+              'maths2Int': -1,
+              'maths2Th': -1,
             },
             'elec': {
-              'elecInt': null,
-              'elecTh': null,
-              'elecPract': null,
+              'elecInt': -1,
+              'elecTh': -1,
+              'elecPract': -1,
             },
+            'subComb': 'pme',
           });
           break;
 
@@ -283,21 +289,22 @@ class FirestoreDatabaseService {
             '${examName}_fName': fName,
             '${examName}_lName': lName,
             'phy': {
-              'phyInt': null,
-              'phyTh': null,
-              'phyPract': null,
+              'phyInt': -1,
+              'phyTh': -1,
+              'phyPract': -1,
             },
             'chem': {
-              'chemInt': null,
-              'chemTh': null,
-              'chemPract': null,
+              'chemInt': -1,
+              'chemTh': -1,
+              'chemPract': -1,
             },
             'maths': {
-              'mahts1Int': null,
-              'maths1Th': null,
-              'maths2Int': null,
-              'maths2Th': null,
+              'maths1Int': -1,
+              'maths1Th': -1,
+              'maths2Int': -1,
+              'maths2Th': -1,
             },
+            'subComb': 'pcm',
           });
           break;
       }
@@ -350,10 +357,10 @@ class FirestoreDatabaseService {
   Future<bool> updateStudentRecord(
       String documentID, fName, lName, batch, gender) async {
     try {
-     DocumentReference dr = Firestore.instance
+      Firestore.instance
           .collection('students')
-          .document(documentID);
-        await dr.updateData({
+          .document(documentID)
+          .updateData({
         'fName': fName,
         'lName': lName,
         'batch': batch,
@@ -361,7 +368,24 @@ class FirestoreDatabaseService {
       });
       return true;
     } catch (e) {
-      return false;
+      return null;
+    }
+  }
+
+  //get result record----------------
+  Future getResultRecord(String fName, String lName, String examName) async {
+    QuerySnapshot qs = await Firestore.instance
+        .collection('$examName')
+        .where(
+          '${examName}_fName',
+          isEqualTo: fName,
+        )
+        .where('${examName}_lName', isEqualTo: lName)
+        .getDocuments();
+    if (qs.documents.isNotEmpty) {
+      return qs.documents[0];
+    } else {
+      return null;
     }
   }
 }

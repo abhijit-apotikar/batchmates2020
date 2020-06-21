@@ -18,15 +18,16 @@ class ServiceToChartData {
   List<MarksDataObj> marksList = [];
   List<MarksDataObj> giveMarks(DocumentSnapshot data) {
     if (data.data.containsKey('stat')) {
-      int statInt = data.data['stat']['statInt'] == null
-          ? minInt + rnd.nextInt(maxInt - minInt)
+      int statInt = data.data['stat']['statInt'] == (-1)
+          ? (minInt + rnd.nextInt(maxInt - minInt))
           : data.data['stat']['statInt'];
-      int statTh = data.data['stat']['statTh'] == null
-          ? minTheory + rnd.nextInt(maxTheory - minTheory)
+      int statTh = data.data['stat']['statTh'] == (-1)
+          ? (minTheory + rnd.nextInt(maxTheory - minTheory))
           : data.data['stat']['statTh'];
-      int statPract = data.data['stat']['statPract'] == null
-          ? minPract + rnd.nextInt(maxPract - minPract)
+      int statPract = data.data['stat']['statPract'] == (-1)
+          ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['stat']['statPract'];
+
       marksList.add(MarksDataObj(
         'Stat',
         statInt,
@@ -35,15 +36,16 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('phy')) {
-      int phyInt = data.data['phy']['phyInt'] == null
-          ? minInt + rnd.nextInt(maxInt - minInt)
+      int phyInt = data.data['phy']['phyInt'] == (-1)
+          ? (minInt + rnd.nextInt(maxInt - minInt))
           : data.data['phy']['phyInt'];
-      int phyTh = data.data['phy']['phyTh'] == null
-          ? minTheory + rnd.nextInt(maxTheory - minTheory)
+      int phyTh = data.data['phy']['phyTh'] == (-1)
+          ? (minTheory + rnd.nextInt(maxTheory - minTheory))
           : data.data['phy']['phyTh'];
-      int phyPract = data.data['phy']['phyPract'] == null
-          ? minPract + rnd.nextInt(maxPract - minPract)
+      int phyPract = data.data['phy']['phyPract'] == (-1)
+          ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['phy']['phyPract'];
+
       marksList.add(MarksDataObj(
         'Phy',
         phyInt,
@@ -52,15 +54,16 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('elec')) {
-      int elecInt = data.data['elec']['elecInt'] == null
-          ? minInt + rnd.nextInt(maxInt - minInt)
+      int elecInt = data.data['elec']['elecInt'] == (-1)
+          ? (minInt + rnd.nextInt(maxInt - minInt))
           : data.data['elec']['elecInt'];
-      int elecTh = data.data['elec']['elecTh'] == null
-          ? minTheory + rnd.nextInt(maxTheory - minTheory)
+      int elecTh = data.data['elec']['elecTh'] == (-1)
+          ? (minTheory + rnd.nextInt(maxTheory - minTheory))
           : data.data['elec']['elecTh'];
-      int elecPract = data.data['elec']['elecPract'] == null
-          ? minPract + rnd.nextInt(maxPract - minPract)
+      int elecPract = data.data['elec']['elecPract'] == (-1)
+          ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['elec']['elecPract'];
+
       marksList.add(MarksDataObj(
         'Elec',
         elecInt,
@@ -69,15 +72,16 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('chem')) {
-      int chemInt = data.data['chem']['chemInt'] == null
-          ? minInt + rnd.nextInt(maxInt - minInt)
+      int chemInt = data.data['chem']['chemInt'] == (-1)
+          ? (minInt + rnd.nextInt(maxInt - minInt))
           : data.data['chem']['chemInt'];
-      int chemTh = data.data['chem']['chemTh'] == null
-          ? minTheory + rnd.nextInt(maxTheory - minTheory)
+      int chemTh = data.data['chem']['chemTh'] == (-1)
+          ? (minTheory + rnd.nextInt(maxTheory - minTheory))
           : data.data['chem']['chemTh'];
-      int chemPract = data.data['chem']['chemPract'] == null
-          ? minPract + rnd.nextInt(maxPract - minPract)
+      int chemPract = data.data['chem']['chemPract'] == (-1)
+          ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['chem']['chemPract'];
+
       marksList.add(MarksDataObj(
         'Chem',
         chemInt,
@@ -86,15 +90,16 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('comp')) {
-      int compInt = data.data['comp']['compInt'] == null
-          ? minInt + rnd.nextInt(maxInt - minInt)
+      int compInt = data.data['comp']['compInt'] == (-1)
+          ? (minInt + rnd.nextInt(maxInt - minInt))
           : data.data['comp']['compInt'];
-      int compTh = data.data['comp']['compTh'] == null
-          ? minTheory + rnd.nextInt(maxTheory - minTheory)
+      int compTh = data.data['comp']['compTh'] == (-1)
+          ? (minTheory + rnd.nextInt(maxTheory - minTheory))
           : data.data['comp']['compTh'];
-      int compPract = data.data['comp']['compPract'] == null
-          ? minPract + rnd.nextInt(maxPract - minPract)
+      int compPract = data.data['comp']['compPract'] == (-1)
+          ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['comp']['compPract'];
+
       marksList.add(MarksDataObj(
         'Comp',
         compInt,
@@ -103,12 +108,13 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('maths')) {
-      int maths1Int = data.data['maths']['maths1Int'] == null
-          ? minMathsInt + rnd.nextInt(maxMathsInt - minMathsInt)
+      int maths1Int = data.data['maths']['maths1Int'] == (-1)
+          ? (minMathsInt + rnd.nextInt(maxMathsInt - minMathsInt))
           : data.data['maths']['maths1Int'];
-      int maths1Th = data.data['maths']['maths1Th'] == null
-          ? minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory)
+      int maths1Th = data.data['maths']['maths1Th'] == (-1)
+          ? (minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory))
           : data.data['maths']['maths1Th'];
+
       marksList.add(MarksDataObj(
         'Maths1',
         maths1Int,
@@ -117,12 +123,13 @@ class ServiceToChartData {
       ));
     }
     if (data.data.containsKey('maths')) {
-      int maths2Int = data.data['maths']['maths2Int'] == null
-          ? minMathsInt + rnd.nextInt(maxMathsInt - minMathsInt)
+      int maths2Int = data.data['maths']['maths2Int'] == (-1)
+          ? (minMathsInt + rnd.nextInt(maxMathsInt - minMathsInt))
           : data.data['maths']['maths2Int'];
-      int maths2Th = data.data['maths']['maths2Th'] == null
-          ? minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory)
+      int maths2Th = data.data['maths']['maths2Th'] == (-1)
+          ? (minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory))
           : data.data['maths']['maths2Th'];
+
       marksList.add(MarksDataObj(
         'Maths2',
         maths2Int,

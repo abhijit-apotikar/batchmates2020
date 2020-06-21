@@ -388,7 +388,7 @@ class _DetailInfoState extends State<DetailInfo> {
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (snapshot.data.documents.length == 0) {
+                    if (!(snapshot.hasData)) {
                       return Center(
                           child: new Text(
                         'No record found',
@@ -415,7 +415,7 @@ class _DetailInfoState extends State<DetailInfo> {
 
                       default:
                         return ListView.builder(
-                          physics: NeverScrollableScrollPhysics(),
+                            physics: NeverScrollableScrollPhysics(),
                             itemCount: snapshot.data.documents.length,
                             itemBuilder: (context, index) {
                               DocumentSnapshot data =

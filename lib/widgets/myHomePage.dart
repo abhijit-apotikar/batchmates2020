@@ -8,9 +8,9 @@ import '../class/actualColorCodes.dart';
 import '../class/arguments.dart';
 
 import '../widgets/about.dart';
-import '../widgets/failureAlertDialog.dart';
 
 import '../services/authService.dart';
+
 
 class MyHomePage extends StatefulWidget {
   @override
@@ -18,7 +18,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String error = '';
   @override
   Widget build(BuildContext context) {
     final localColorCodeNotifier = Provider.of<ColorCodeNotifier>(context);
@@ -321,13 +320,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ]),
             ),
-            new Divider(
-              height: 0.0,
-              color: Colors.grey,
-              thickness: 2,
-              indent: 20,
-              endIndent: 20,
-            ),
+            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
             ListTile(
               enabled:
                   user.email == 'abhijit.apotikar156@gmail.com' ? true : false,
@@ -341,14 +334,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   onTap: () {
-                    if (user.email == 'abhijit.apotikar156@gmail.com')
-                      Navigator.pushNamed(context, '/EditRecord');
-                    else {
-                      setState(() {
-                        error = 'Access Denied';
-                        showFailureAlertDialog(context, error);
-                      });
-                    }
+                    Navigator.pushNamed(context, '/EditRecord');
                   }),
               subtitle: Text(
                 user.email == 'abhijit.apotikar156@gmail.com'
@@ -363,13 +349,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-            new Divider(
-              height: 0.0,
-              color: Colors.grey,
-              thickness: 2,
-              indent: 20,
-              endIndent: 20,
-            ),
+             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -384,13 +364,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     await _authService.signOutFromGoogle();
                   }),
             ),
-            new Divider(
-              height: 0.0,
-              color: Colors.grey,
-              thickness: 2,
-              indent: 20,
-              endIndent: 20,
-            ),
+             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -405,13 +379,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     showOwnAboutDialog(context, size);
                   }),
             ),
-            new Divider(
-              height: 0.0,
-              color: Colors.grey,
-              thickness: 2,
-              indent: 20,
-              endIndent: 20,
-            ),
+            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
           ],
         ),
       ),
