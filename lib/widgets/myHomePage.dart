@@ -11,7 +11,6 @@ import '../widgets/about.dart';
 
 import '../services/authService.dart';
 
-
 class MyHomePage extends StatefulWidget {
   @override
   _MyHomePageState createState() => _MyHomePageState();
@@ -29,7 +28,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
 //     Timestamp t = document['timeFieldName'];
 // DateTime d = t.toDate();
-// print(d.toString()); 
+// print(d.toString());
 
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
@@ -62,18 +61,15 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SafeArea(
         child: Container(
           decoration: BoxDecoration(
-            gradient: new LinearGradient(
-                colors: [
-                  localColorCode.mainBackgroundGradient1,
-                  localColorCode.mainBackgroundGradient2,
-                  localColorCode.mainBackgroundGradient3,
-                ],
-               // begin: Alignment.topCenter,
-               // end: Alignment.bottomCenter,
-                // begin: const FractionalOffset(0.0, 0.0),
-                // end: const FractionalOffset(1.0, 0.0),
-                stops: [0.0, 0.5, 1.0],
-                tileMode: TileMode.clamp),
+            gradient: new LinearGradient(colors: [
+              localColorCode.mainBackgroundGradient1,
+              localColorCode.mainBackgroundGradient2,
+              localColorCode.mainBackgroundGradient3,
+            ], stops: [
+              0.0,
+              0.5,
+              1.0
+            ], tileMode: TileMode.clamp),
           ),
           child: Scrollbar(
             child: SingleChildScrollView(
@@ -86,10 +82,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       decoration: BoxDecoration(
                         border: Border.all(
-                          color: localColorCode.quoteCardBorder,
-                          width: 2
-                        ),
-                        
+                            color: localColorCode.quoteCardBorder, width: 2),
                         borderRadius: BorderRadius.all(
                           Radius.circular(30),
                         ),
@@ -130,7 +123,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             style: TextStyle(
                                               fontFamily: 'Satisfy',
                                               fontSize: 24,
-                                              color: localColorCode.quoteCardText,
+                                              color:
+                                                  localColorCode.quoteCardText,
                                               fontWeight: FontWeight.bold,
                                             )),
                                       ),
@@ -143,7 +137,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             style: TextStyle(
                                               fontFamily: 'Satisfy',
                                               fontSize: 20,
-                                              color: localColorCode.quoteCardText,
+                                              color:
+                                                  localColorCode.quoteCardText,
                                               fontWeight: FontWeight.bold,
                                             )),
                                       ),
@@ -155,8 +150,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ': ${quote['author']}',
                                       style: TextStyle(
                                         fontFamily: 'Satisfy',
-                                       color: localColorCode.quoteCardText,
-                                       fontWeight: FontWeight.bold,
+                                        color: localColorCode.quoteCardText,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
@@ -331,7 +326,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     )
                   ]),
             ),
-            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
+            new Divider(
+              height: 0.0,
+              color: Colors.grey,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+            ),
             ListTile(
               enabled:
                   user.email == 'abhijit.apotikar156@gmail.com' ? true : false,
@@ -360,7 +361,13 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
             ),
-             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
+            new Divider(
+              height: 0.0,
+              color: Colors.grey,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+            ),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -375,7 +382,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     await _authService.signOutFromGoogle();
                   }),
             ),
-             new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
+            new Divider(
+              height: 0.0,
+              color: Colors.grey,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+            ),
             ListTile(
               title: InkWell(
                   child: Text(
@@ -390,7 +403,13 @@ class _MyHomePageState extends State<MyHomePage> {
                     showOwnAboutDialog(context, size);
                   }),
             ),
-            new Divider(height: 0.0, color: Colors.grey,thickness: 2,indent: 20,endIndent: 20,),
+            new Divider(
+              height: 0.0,
+              color: Colors.grey,
+              thickness: 2,
+              indent: 20,
+              endIndent: 20,
+            ),
           ],
         ),
       ),

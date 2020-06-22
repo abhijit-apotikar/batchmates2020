@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
 const textFormFieldDecoration = InputDecoration(
-  //fillColor: Theme.of(context=)
- // filled: true,
+
   enabledBorder: OutlineInputBorder(
     borderSide: BorderSide(
       color: Colors.blue,
@@ -15,4 +14,8 @@ const textFormFieldDecoration = InputDecoration(
       width: 2,
     ),
   ),
+);
+
+const myTextFormFieldTextStyle = TextStyle(
+  fontFamily: 'Typewriter',
 );

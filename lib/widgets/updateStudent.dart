@@ -49,6 +49,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                         child: Column(
                           children: <Widget>[
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'First Name',
                               ),
@@ -65,6 +66,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                               height: 20.0,
                             ),
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Last Name',
                               ),
@@ -81,6 +83,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                               height: 20.0,
                             ),
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Batch',
                               ),
@@ -97,6 +100,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                               height: 20.0,
                             ),
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Gender',
                               ),
@@ -115,7 +119,10 @@ class _UpdateStudentState extends State<UpdateStudent> {
                     ),
                     SizedBox(height: 20),
                     RaisedButton(
-                      child: Text('update'),
+                      child: Text(
+                        'update',
+                        style: TextStyle(fontFamily: 'Nunito'),
+                      ),
                       onPressed: () async {
                         if (_formKey6.currentState.validate()) {
                           setState(() {
@@ -156,6 +163,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                       child: Column(
                         children: <Widget>[
                           TextFormField(
+                            style: myTextFormFieldTextStyle,
                             decoration: textFormFieldDecoration.copyWith(
                                 hintText: 'First Name'),
                             validator: (value) => value.isEmpty
@@ -171,6 +179,7 @@ class _UpdateStudentState extends State<UpdateStudent> {
                             height: 20,
                           ),
                           TextFormField(
+                            style: myTextFormFieldTextStyle,
                             decoration: textFormFieldDecoration.copyWith(
                                 hintText: 'Last Name'),
                             validator: (value) => value.isEmpty
@@ -186,7 +195,10 @@ class _UpdateStudentState extends State<UpdateStudent> {
                             height: 20,
                           ),
                           RaisedButton(
-                            child: Text('Get Record'),
+                            child: Text(
+                              'Get Record',
+                              style: TextStyle(fontFamily: 'Nunito'),
+                            ),
                             onPressed: () async {
                               if (_formKey5.currentState.validate()) {
                                 setState(() {

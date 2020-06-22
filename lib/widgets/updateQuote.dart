@@ -44,6 +44,7 @@ class _UpdateQuoteState extends State<UpdateQuote> {
                         child: Column(
                           children: <Widget>[
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Quote',
                               ),
@@ -60,6 +61,7 @@ class _UpdateQuoteState extends State<UpdateQuote> {
                               height: 20.0,
                             ),
                             TextFormField(
+                              style: myTextFormFieldTextStyle,
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Author',
                               ),
@@ -81,7 +83,10 @@ class _UpdateQuoteState extends State<UpdateQuote> {
                     ),
                     SizedBox(height: 20),
                     RaisedButton(
-                      child: Text('update'),
+                      child: Text(
+                        'update',
+                        style: TextStyle(fontFamily: 'Nunito'),
+                      ),
                       onPressed: () async {
                         setState(() {
                           loading = true;
@@ -117,7 +122,10 @@ class _UpdateQuoteState extends State<UpdateQuote> {
                   children: <Widget>[
                     Center(
                       child: RaisedButton(
-                        child: Text('Update Quote'),
+                        child: Text(
+                          'Update Quote',
+                          style: TextStyle(fontFamily: 'Nunito'),
+                        ),
                         onPressed: () async {
                           dynamic result = await fds.getQuoteInfo();
                           if (!(result == null)) {

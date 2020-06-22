@@ -25,29 +25,69 @@ showOwnAboutDialog(BuildContext context, Size size) {
     title: Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: <Widget>[
-        Text('About',style: TextStyle(fontWeight: FontWeight.bold),),
+        Text(
+          'About',
+          style: TextStyle(fontWeight: FontWeight.bold, fontFamily: 'Nunito'),
+        ),
       ],
     ),
     content: Container(
       height: size.height * 0.2,
       child: Column(children: <Widget>[
         Row(children: <Widget>[
-          Text('Developer: '),
-          Text('Abhijit Apotikar'),
+          Text(
+            'Developer: ',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          ),
+          Text(
+            'Abhijit Apotikar',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          ),
         ]),
         SizedBox(
           height: 20,
         ),
         Row(children: <Widget>[
-          Text('Email: '),
-          Text('qadfaplays@gmail.com'),
+          Flexible(
+              child: Text(
+            'Email: ',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          )),
+          Text(
+            'qadfaplays@gmail.com',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          ),
         ]),
         SizedBox(
           height: 20,
         ),
         Row(children: <Widget>[
-          Text('version: '),
-          Text('v1.0.0'),
+          Text(
+            'version: ',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          ),
+          Text(
+            'v1.0.0',
+            style: TextStyle(
+              fontFamily: 'Typewriter',
+              fontSize: 14,
+            ),
+          ),
         ]),
       ]),
     ),

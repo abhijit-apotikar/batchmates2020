@@ -38,6 +38,7 @@ class _DeleteStudentState extends State<DeleteStudent> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    style: myTextFormFieldTextStyle,
                     controller: _fNameCtrl,
                     decoration: textFormFieldDecoration.copyWith(
                         hintText: 'first name'),
@@ -51,6 +52,7 @@ class _DeleteStudentState extends State<DeleteStudent> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
+                    style: myTextFormFieldTextStyle,
                     controller: _lNameCtrl,
                     decoration:
                         textFormFieldDecoration.copyWith(hintText: 'last name'),
@@ -67,7 +69,10 @@ class _DeleteStudentState extends State<DeleteStudent> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       RaisedButton(
-                        child: Text('Delete Student'),
+                        child: Text(
+                          'Delete Student',
+                          style: TextStyle(fontFamily: 'Nunito'),
+                        ),
                         onPressed: () async {
                           if (_formKey3.currentState.validate()) {
                             setState(() {

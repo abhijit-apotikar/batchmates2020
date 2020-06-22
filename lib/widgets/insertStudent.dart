@@ -57,6 +57,7 @@ class _InsertStudentState extends State<InsertStudent> {
               child: Column(
                 children: <Widget>[
                   TextFormField(
+                    style: myTextFormFieldTextStyle,
                     controller: _fNameCtrl,
                     decoration: textFormFieldDecoration.copyWith(
                         hintText: 'first name'),
@@ -70,6 +71,7 @@ class _InsertStudentState extends State<InsertStudent> {
                   ),
                   SizedBox(height: 20),
                   TextFormField(
+                    style: myTextFormFieldTextStyle,
                     controller: _lNameCtrl,
                     decoration:
                         textFormFieldDecoration.copyWith(hintText: 'last name'),

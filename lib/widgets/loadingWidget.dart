@@ -14,7 +14,7 @@ class LoadingWidget extends StatelessWidget {
       child: Center(
         child: SpinKitCircle(
           color: localColorCode.loadingForeground,
-          size: 50,
+          size: 80,
         ),
       ),
     );
