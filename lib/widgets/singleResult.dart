@@ -195,18 +195,26 @@ class _SingleResultState extends State<SingleResult> {
                     if (_formKey2.currentState.validate()) {
                       dynamic result = await fds.addResult(fName, lName,batchDropdownValue.toLowerCase(),
                           examDropdownValue,);
-                      if (result) {
+                      if (result == true) {
                         setState(() {
-                          error = 'Result added Successfully';
+                          error = 'Result added Successfully.';
                           showSuccessAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();
                           examDropdownValue = 'bscSem1W2017';
                           
                         });
-                      } else {
+                      } else if(result == false) {
                         setState(() {
-                          error = 'Sorry, Result already exists';
+                          error = 'Sorry, Result already exists.';
+                          showFailureAlertDialog(context, error);
+                          _fNameCtrl.clear();
+                          _lNameCtrl.clear();
+                          examDropdownValue = 'bscSem1W2017';
+                        });
+                      }else if(result == null){
+                         setState(() {
+                          error = 'Sorry, Only students in students collection can have result.';
                           showFailureAlertDialog(context, error);
                           _fNameCtrl.clear();
                           _lNameCtrl.clear();

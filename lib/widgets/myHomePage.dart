@@ -27,6 +27,10 @@ class _MyHomePageState extends State<MyHomePage> {
     final AuthService _authService = new AuthService();
     Size size = MediaQuery.of(context).size;
 
+//     Timestamp t = document['timeFieldName'];
+// DateTime d = t.toDate();
+// print(d.toString()); 
+
     return Scaffold(
       backgroundColor: localColorCode.ccBackgroundColor,
       appBar: AppBar(
@@ -64,8 +68,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   localColorCode.mainBackgroundGradient2,
                   localColorCode.mainBackgroundGradient3,
                 ],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
+               // begin: Alignment.topCenter,
+               // end: Alignment.bottomCenter,
                 // begin: const FractionalOffset(0.0, 0.0),
                 // end: const FractionalOffset(1.0, 0.0),
                 stops: [0.0, 0.5, 1.0],
@@ -81,14 +85,18 @@ class _MyHomePageState extends State<MyHomePage> {
                       padding:
                           const EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 10.0),
                       decoration: BoxDecoration(
-                        border: Border.all(),
+                        border: Border.all(
+                          color: localColorCode.quoteCardBorder,
+                          width: 2
+                        ),
+                        
                         borderRadius: BorderRadius.all(
                           Radius.circular(30),
                         ),
                         gradient: new LinearGradient(
                             colors: [
-                              Colors.cyan,
-                              Colors.pink,
+                              localColorCode.backgroundGradient1,
+                              localColorCode.backgroundGradient2,
                             ],
                             begin: Alignment.topLeft,
                             end: Alignment.bottomRight,
@@ -109,6 +117,8 @@ class _MyHomePageState extends State<MyHomePage> {
                               );
                             }
                             var quote = snapshot.data;
+                            Timestamp t = quote['updated'];
+                            DateTime d = t.toDate().toLocal();
                             return new Column(
                               mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: <Widget>[
@@ -118,10 +128,9 @@ class _MyHomePageState extends State<MyHomePage> {
                                       Flexible(
                                         child: Text('Daily Quote',
                                             style: TextStyle(
-                                              fontFamily: 'Pica',
+                                              fontFamily: 'Satisfy',
                                               fontSize: 24,
-                                              color: localColorCode
-                                                  .ccAppBarForegroundColor,
+                                              color: localColorCode.quoteCardText,
                                               fontWeight: FontWeight.bold,
                                             )),
                                       ),
@@ -134,7 +143,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                             style: TextStyle(
                                               fontFamily: 'Satisfy',
                                               fontSize: 20,
-                                              color: Colors.white,
+                                              color: localColorCode.quoteCardText,
+                                              fontWeight: FontWeight.bold,
                                             )),
                                       ),
                                     ]),
@@ -145,7 +155,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                       ': ${quote['author']}',
                                       style: TextStyle(
                                         fontFamily: 'Satisfy',
-                                        color: Colors.white,
+                                       color: localColorCode.quoteCardText,
+                                       fontWeight: FontWeight.bold,
                                       ),
                                     ),
                                   ],
@@ -154,7 +165,7 @@ class _MyHomePageState extends State<MyHomePage> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: <Widget>[
                                     Text(
-                                      'updated: ${quote['updated']}',
+                                      'updated: ${d.toString()}',
                                       style: TextStyle(
                                           fontSize: 10, fontFamily: 'Satisfy'),
                                     ),

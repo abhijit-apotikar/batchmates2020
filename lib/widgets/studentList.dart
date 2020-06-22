@@ -177,6 +177,7 @@ class StudentList extends StatelessWidget {
                   stream: Firestore.instance
                       .collection('students')
                       .where('batch', isEqualTo: 'm${mainIndex.aridx + 1}')
+                      .orderBy('fName')
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {

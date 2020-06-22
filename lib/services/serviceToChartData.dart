@@ -27,7 +27,6 @@ class ServiceToChartData {
       int statPract = data.data['stat']['statPract'] == (-1)
           ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['stat']['statPract'];
-
       marksList.add(MarksDataObj(
         'Stat',
         statInt,
@@ -45,7 +44,6 @@ class ServiceToChartData {
       int phyPract = data.data['phy']['phyPract'] == (-1)
           ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['phy']['phyPract'];
-
       marksList.add(MarksDataObj(
         'Phy',
         phyInt,
@@ -63,7 +61,6 @@ class ServiceToChartData {
       int elecPract = data.data['elec']['elecPract'] == (-1)
           ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['elec']['elecPract'];
-
       marksList.add(MarksDataObj(
         'Elec',
         elecInt,
@@ -81,7 +78,6 @@ class ServiceToChartData {
       int chemPract = data.data['chem']['chemPract'] == (-1)
           ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['chem']['chemPract'];
-
       marksList.add(MarksDataObj(
         'Chem',
         chemInt,
@@ -99,7 +95,6 @@ class ServiceToChartData {
       int compPract = data.data['comp']['compPract'] == (-1)
           ? (minPract + rnd.nextInt(maxPract - minPract))
           : data.data['comp']['compPract'];
-
       marksList.add(MarksDataObj(
         'Comp',
         compInt,
@@ -114,7 +109,6 @@ class ServiceToChartData {
       int maths1Th = data.data['maths']['maths1Th'] == (-1)
           ? (minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory))
           : data.data['maths']['maths1Th'];
-
       marksList.add(MarksDataObj(
         'Maths1',
         maths1Int,
@@ -129,7 +123,6 @@ class ServiceToChartData {
       int maths2Th = data.data['maths']['maths2Th'] == (-1)
           ? (minMathsTheory + rnd.nextInt(maxMathsTheory - minMathsTheory))
           : data.data['maths']['maths2Th'];
-
       marksList.add(MarksDataObj(
         'Maths2',
         maths2Int,
@@ -137,7 +130,6 @@ class ServiceToChartData {
         null,
       ));
     }
-
     return marksList;
   }
 }

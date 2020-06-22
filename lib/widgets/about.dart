@@ -47,7 +47,7 @@ showOwnAboutDialog(BuildContext context, Size size) {
         ),
         Row(children: <Widget>[
           Text('version: '),
-          Text('v1.0'),
+          Text('v1.0.0'),
         ]),
       ]),
     ),

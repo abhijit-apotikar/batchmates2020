@@ -62,8 +62,8 @@ class _SearchWidgetState extends State<SearchWidget> {
                 decoration: BoxDecoration(
                   gradient: new LinearGradient(
                       colors: [
-                        localColorCode.backgroundGradient1,
-                        localColorCode.backgroundGradient2,
+                        localColorCode.editGradient1,
+                        localColorCode.editGradient2,
                       ],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
@@ -73,7 +73,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       tileMode: TileMode.clamp),
                 ),
                 padding: const EdgeInsets.symmetric(
-                  vertical: 40,
+                  vertical: 20,
                   horizontal: 20,
                 ),
                 child: Form(
@@ -107,7 +107,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                       SizedBox(height: 20),
                       TextFormField(
                         decoration:
-                            textFormFieldDecoration.copyWith(hintText: 'batch'),
+                            textFormFieldDecoration.copyWith(hintText: 'batch e.g. M1,M2....'),
                         controller: batchCtrl,
                         validator: (val) =>
                             val.isEmpty ? 'Enter last name' : null,
@@ -149,7 +149,7 @@ class _SearchWidgetState extends State<SearchWidget> {
                               onPressed: () async {
                                 if (_formKey.currentState.validate()) {
                                   SearchArguments sa =
-                                      new SearchArguments(fName, lName, batch);
+                                      new SearchArguments(fName.toLowerCase(), lName.toLowerCase(), batch.toLowerCase());
                                   print(fName);
                                   Navigator.pushNamed(context, '/SearchResults',
                                       arguments: sa);

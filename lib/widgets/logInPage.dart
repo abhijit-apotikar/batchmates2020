@@ -162,7 +162,7 @@ class _LogInPageState extends State<LogInPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Text(
-                  'version 1.0',
+                  'version 1.0.0',
                   style: TextStyle(
                       fontSize: 14,
                       color: Colors.deepOrangeAccent,

@@ -59,17 +59,14 @@ class SearchResultsWidget extends StatelessWidget {
               decoration: BoxDecoration(
                 gradient: new LinearGradient(
                     colors: [
-                      localColorCode.backgroundGradient1,
-                      localColorCode.backgroundGradient2,
+                      localColorCode.editGradient1,
+                      localColorCode.editGradient2,
                     ],
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
-                    // begin: const FractionalOffset(0.0, 0.0),
-                    // end: const FractionalOffset(1.0, 0.0),
                     stops: [0.0, 1.0],
                     tileMode: TileMode.clamp),
               ),
-              //color: localColorCode.ccBackgroundColor,
               width: double.infinity,
               height: (size.height) * 0.87,
               padding: const EdgeInsets.only(left: 5, right: 5),
@@ -82,7 +79,7 @@ class SearchResultsWidget extends StatelessWidget {
                       .snapshots(),
                   builder: (BuildContext context,
                       AsyncSnapshot<QuerySnapshot> snapshot) {
-                    if (!snapshot.hasData)
+                    if (!snapshot.hasData) {
                       return Center(
                         child: Text(
                           'No record found',
@@ -93,6 +90,8 @@ class SearchResultsWidget extends StatelessWidget {
                               fontFamily: 'Nunito'),
                         ),
                       );
+                    }
+
                     if (snapshot.hasError)
                       return Center(
                           child: new Text(

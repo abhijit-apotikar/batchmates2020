@@ -25,6 +25,10 @@ class ColorCode {
   Color mainBackgroundGradient1;
   Color mainBackgroundGradient2;
   Color mainBackgroundGradient3;
+  Color quoteCardBorder;
+  Color editGradient1;
+  Color editGradient2;
+  Color quoteCardText;
   Brightness ccBrightness;
 
   ColorCode({
@@ -52,6 +56,10 @@ class ColorCode {
     this.mainBackgroundGradient1,
     this.mainBackgroundGradient2,
     this.mainBackgroundGradient3,
+    this.quoteCardBorder,
+    this.editGradient1,
+    this.editGradient2,
+    this.quoteCardText,
     this.ccBrightness,
   });
 }
