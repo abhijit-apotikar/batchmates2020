@@ -98,7 +98,7 @@ class FirestoreDatabaseService {
         QuerySnapshot qs = await Firestore.instance
             .collection('${examNames[i]}')
             .where('${examNames[i]}_fName', isEqualTo: fName)
-            .where('${examNames[i]}_lName')
+            .where('${examNames[i]}_lName',isEqualTo: lName)
             .getDocuments();
         if (qs.documents.isEmpty) {
           await addResult(fName, lName, batch, examNames[i]);
