@@ -41,7 +41,7 @@ class _DeleteStudentState extends State<DeleteStudent> {
                     style: myTextFormFieldTextStyle,
                     controller: _fNameCtrl,
                     decoration: textFormFieldDecoration.copyWith(
-                        hintText: 'first name'),
+                        hintText: 'First name'),
                     validator: (value) =>
                         value.isEmpty ? 'first name can\'t be empty' : null,
                     onChanged: (val) {
@@ -55,7 +55,7 @@ class _DeleteStudentState extends State<DeleteStudent> {
                     style: myTextFormFieldTextStyle,
                     controller: _lNameCtrl,
                     decoration:
-                        textFormFieldDecoration.copyWith(hintText: 'last name'),
+                        textFormFieldDecoration.copyWith(hintText: 'Last name'),
                     validator: (value) =>
                         value.isEmpty ? 'last name can\'t be empty' : null,
                     onChanged: (val) {
