@@ -347,7 +347,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   onTap: () {
-                    if(user.email == 'abhijit.apotikar156@gmail.com'){
+                    if(user.email == 'abhijit.apotikar156@gmail.com'){       ////Try bt let me tell U it won't work!!!
                        Navigator.pushNamed(context, '/EditRecord');
                     }else {
                       showFailureAlertDialog(context, 'Access Denied');
@@ -355,7 +355,7 @@ class _MyHomePageState extends State<MyHomePage> {
                    
                   }),
               subtitle: Text(
-                user.email == 'abhijit.apotikar156@gmail.com'
+                user.email == 'abhijit.apotikar156@gmail.com'              
                     ? 'Congrats You have required Admin Priviledges to edit records'
                     : 'Sorry, edit option disabled as you lack Admin Priviledges',
                 style: TextStyle(
