@@ -85,6 +85,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      style: myTextFormFieldTextStyle,
                       decoration:
                           textFormFieldDecoration.copyWith(hintText: 'Email'),
                       validator: (val) =>
@@ -97,6 +98,7 @@ class _RegisterWidgetState extends State<RegisterWidget> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      style: myTextFormFieldTextStyle,
                       decoration: textFormFieldDecoration.copyWith(
                           hintText: 'Password'),
                       validator: (val) => val.length < 6

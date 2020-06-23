@@ -84,6 +84,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                 child: Column(
                   children: <Widget>[
                     TextFormField(
+                      style:myTextFormFieldTextStyle,
                       decoration:
                           textFormFieldDecoration.copyWith(hintText: 'Email'),
                       validator: (val) =>
@@ -96,6 +97,7 @@ class _SignInWidgetState extends State<SignInWidget> {
                     ),
                     SizedBox(height: 20),
                     TextFormField(
+                      style:myTextFormFieldTextStyle,
                       decoration: textFormFieldDecoration.copyWith(
                           hintText: 'Password'),
                       validator: (val) => val.length < 6

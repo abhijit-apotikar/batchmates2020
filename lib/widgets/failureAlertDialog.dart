@@ -13,6 +13,7 @@ showFailureAlertDialog(BuildContext context, String msg) {
         color: Colors.green,
         fontSize: 16,
         fontWeight: FontWeight.bold,
+        fontFamily: 'Nunito',
       ),
     ),
     onPressed: () {
@@ -42,6 +43,7 @@ showFailureAlertDialog(BuildContext context, String msg) {
               color: Colors.red,
               fontSize: 14,
               fontWeight: FontWeight.bold,
+              fontFamily: 'Nunito',
             ),
           ),
         ),

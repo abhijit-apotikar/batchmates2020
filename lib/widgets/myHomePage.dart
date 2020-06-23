@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:gradbatch2020/widgets/failureAlertDialog.dart';
 import 'package:provider/provider.dart';
 
 import '../class/colorCodeNotifier.dart';
@@ -346,7 +347,12 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   onTap: () {
-                    Navigator.pushNamed(context, '/EditRecord');
+                    if(user.email == 'abhijit.apotikar156@gmail.com'){
+                       Navigator.pushNamed(context, '/EditRecord');
+                    }else {
+                      showFailureAlertDialog(context, 'Access Denied');
+                    }
+                   
                   }),
               subtitle: Text(
                 user.email == 'abhijit.apotikar156@gmail.com'

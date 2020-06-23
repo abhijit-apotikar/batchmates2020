@@ -13,6 +13,7 @@ showAlertDialog(BuildContext context, String msg) {
         color: Colors.green,
         fontSize: 16,
         fontWeight: FontWeight.bold,
+        fontFamily: 'Nunito'
       ),
     ),
     onPressed: () {
@@ -41,6 +42,7 @@ showAlertDialog(BuildContext context, String msg) {
             color: Colors.red,
             fontSize: 16,
             fontWeight: FontWeight.bold,
+            fontFamily: 'Nunito',
           ),
         ),
       ],
