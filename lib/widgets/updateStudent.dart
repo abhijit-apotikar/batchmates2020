@@ -70,7 +70,6 @@ class _UpdateStudentState extends State<UpdateStudent> {
                               decoration: textFormFieldDecoration.copyWith(
                                 labelText: 'Last Name',
                               ),
-                              // controller: lNameCtrlEdited,
                               initialValue: dr.data['lName'],
                               validator: (value) => value.isEmpty
                                   ? 'last name can\'t be empty'
@@ -217,11 +216,14 @@ class _UpdateStudentState extends State<UpdateStudent> {
                                     isRecordAvailable = true;
                                   });
                                 } else {
-                                  loading = false;
-                                  error = 'Requested record not found';
-                                  showFailureAlertDialog(context, error);
-                                  fNameCtrl.clear();
-                                  lNameCtrl.clear();
+                                  setState(() {
+                                    loading = false;
+                                    error = 'Requested record not found';
+                                    showFailureAlertDialog(context, error);
+                                    fNameCtrl.clear();
+                                    lNameCtrl.clear();
+                                    isRecordAvailable = false;
+                                  });
                                 }
                               }
                             },

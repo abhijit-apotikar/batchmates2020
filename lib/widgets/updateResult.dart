@@ -3147,6 +3147,7 @@ class _UpdateResultState extends State<UpdateResult> {
                                 fNameCtrl.clear();
                                 lNameCtrl.clear();
                                 examDropdownValue = 'bscSem1W2017';
+                                isRecordAvailable= false;
                               });
                             }
                           }

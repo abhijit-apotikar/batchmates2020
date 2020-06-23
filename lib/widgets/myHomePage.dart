@@ -172,7 +172,7 @@ class _MyHomePageState extends State<MyHomePage> {
                           })),
                   Container(
                     width: double.infinity,
-                    height: (size.height) * 0.95,
+                    height: (size.height) * 1.0,
                     padding: const EdgeInsets.symmetric(horizontal: 10),
                     child: GridView.count(
                         physics: NeverScrollableScrollPhysics(),
